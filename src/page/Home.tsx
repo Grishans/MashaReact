@@ -8,6 +8,15 @@ const Home: React.FC = (): React.ReactElement => {
     slidesToScroll: 1,
     dots: true,
     dotsClass: "slider_dots",
+    responsive: [
+      {
+        breakpoint: 900,
+        settings: {
+          arrows: false,
+          slidesToShow: 2.5
+        }
+      },
+    ]
   }
 
   const settingsTwo = {
@@ -26,12 +35,18 @@ const Home: React.FC = (): React.ReactElement => {
   const reviewsVideo = React.useRef<HTMLDivElement>(null)
   const reviewsText = React.useRef<HTMLDivElement>(null)
 
+  const [headerNav, setHeaderNav] = React.useState(false)
+  const navShow = React.useCallback(()=>{
+    setHeaderNav((prev) => !prev)
+  },[])
+
 
   const customSlider = React.useCallback(() => {
       var step: any 
       var quantity: any 
       var slideWidth: any 
       var currentSlide: any 
+      var whiteOpacityBox = document.querySelectorAll('.srvice__lastSlide_opacity') 
       
       document.querySelector('#labelWeeding')!.addEventListener("click", () =>{
         document.getElementById('portfolio__weeding')!.style.display = "block"
@@ -119,8 +134,35 @@ const Home: React.FC = (): React.ReactElement => {
         reviewsVideo.current!.style.opacity = "0"
         reviewsText.current!.style.opacity = "1"
       })
+
+///////////////////////////////////////////////////////////////
+      var buttonSlidePrev = document.querySelectorAll('.services__wrap > .slider> .slick-slider > .slick-prev')
+      var buttonSlideNext = document.querySelectorAll('.services__wrap > .slider > .slick-slider > .slick-next')
+      
+      for(let i=0;i<buttonSlidePrev.length;i++){
+        buttonSlidePrev[i].addEventListener('click', ()=>{
+          if(buttonSlidePrev[i].classList.contains('slick-disabled')){
+            whiteOpacityBox[i].setAttribute('style', 'opacity: 0.6')
+          } else{
+            whiteOpacityBox[i].setAttribute('style', 'opacity: 0')
+            setTimeout(()=>whiteOpacityBox[i].setAttribute('style', 'opacity: 0.6'),400)
+          }
+        })
+        buttonSlideNext[i].addEventListener('click', ()=>{
+          if(buttonSlideNext[i].classList.contains('slick-disabled')){
+            whiteOpacityBox[i].setAttribute('style', 'opacity: 0')
+          } else{
+            whiteOpacityBox[i].setAttribute('style', 'opacity: 0')
+            setTimeout(()=>whiteOpacityBox[i].setAttribute('style', 'opacity: 0.6'),400)
+          }
+        })
+      }
+///////////////////////////////////////////////////////////////
         reviewsVideo.current!.style.visibility = "visible"
         reviewsText.current!.style.visibility = "hidden"
+
+        document.getElementById('labelWeeding')?.click() // если не кликнуть на любой toogle, то цифры в слайдере не появятся (костыль)
+        
 
   },[])
   React.useEffect(() => {
@@ -128,26 +170,33 @@ const Home: React.FC = (): React.ReactElement => {
   },[customSlider])
   return (
     <>
-    <header>
+  <header>
     <div className="header__wrap">
       <div className="header__nav">
-        <img src="/img/burger.svg" alt="" />
-        <ul id="main_nav" className="main_nav">
+        <img src="/img/burger.svg" alt="" onClick={navShow}/>
+        {headerNav && (<ul id="main_nav" className="main_nav">
           <a href="/"><li>Услуги</li></a>
           <a href="/"><li>О себе</li></a>
           <a href="/"><li>Портфолио</li></a>
           <a href="/"><li>Отзывы</li></a>
           <a href="/"><li>Курсы</li></a>
-        </ul>
+        </ul>)}
+        <div className="header__main__language">
+            <input id="EN" name="checkLang" type="radio" checked />
+            <label htmlFor="EN">EN</label>
+            <hr />
+            <input id="RU" name="checkLang" type="radio" />
+            <label htmlFor="RU">RU</label>
+          </div>
       </div>
-  
+      
       <div className="header__main">
         <div className="header__main__text">
           <img src="/img/logo_white.svg" alt="" />
           <p>Услуги визажиста и стилиста по прическам на выезд</p>
           <button>Записаться</button>
         </div>
-          <img src="/img/main-girl.png" alt="" className="girl" />
+          <img src="/img/main-girl.png" alt="" className="girl"/>
         <div className="header__main__sn">
           <div className="header__main__language">
             <input id="EN" name="checkLang" type="radio" checked />
@@ -168,14 +217,16 @@ const Home: React.FC = (): React.ReactElement => {
           </div>
         </div>
   
-  
       </div>
     </div>
 
     <div className="header__bg">
     </div>
-    
+    <img className='header__bg__left_top' src="img/leftUp.png" alt=""/>
+    <img className='header__bg__left_bottom' src="img/leftDown.png" alt=""/>
+    <img className='header__bg__right_top' src="img/rightUp.png" alt=""/>
   </header>
+  
   <section className="services">
     <p className="title">Услуги</p>
     <div className="services__wrap">
@@ -187,7 +238,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Вечерний макияж</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_1.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form"><p>Записаться</p> </a>
             </div>
           </div>
           <div>
@@ -195,7 +246,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Свадебный макияж</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_2.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form">Записаться</a>
             </div>
           </div>
           <div>
@@ -203,7 +254,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Макияж на фотосессию</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_3.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form">Записаться</a>
             </div>
           </div>
           <div>
@@ -211,6 +262,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Макияж на фотосессию</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_3.png" alt="" />
+              <a className="services__box_htmlForm" href="#form"><p>Записаться</p> </a>
             </div>
           </div>
           <div>
@@ -218,7 +270,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Макияж на фотосессию</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_3.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form">Записаться</a>
             </div>
           </div>
           <div>
@@ -226,7 +278,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Вечерний макияж</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_1.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form">Записаться</a>
             </div>
           </div>
           <div>
@@ -234,7 +286,7 @@ const Home: React.FC = (): React.ReactElement => {
               <p className="services__box__article">Вечерний макияж</p>
               <p className="services__box__time">60 минут</p>
               <img src="/img/services_1.png" alt="" />
-              <a className="services__box_htmlForm" href="#htmlForm">Заказать</a>
+              <a className="services__box_htmlForm" href="#form">Записаться</a>
             </div>
           </div>
           </SlickSlider>
@@ -250,7 +302,13 @@ const Home: React.FC = (): React.ReactElement => {
   <section className="portfolio">
     <div className="portolio__wrap">
       <p className="title">Портфолио</p>
-
+      <div className="portfolio__slideButton">
+      <span id='customPrev' className="portfolio_prev" >&#60;</span>
+      <p ref={current_slide} id="firstLetter" className="firstLetter"></p>
+      <p className="delimiter">/</p>
+      <p ref={quantity_slide} id="delimiter"></p>
+      <span id='customNext' className="portfolio_next" >&#62;</span>
+    </div>
       <div className="portfolio__section">
         <div className="portfolio__toogle">
           <input id="weeding" name="portfolio" type="radio" checked />
@@ -384,13 +442,6 @@ const Home: React.FC = (): React.ReactElement => {
     <div className="title__top_left"></div>
     <div className="title__top_right"></div>
 
-    <div className="portfolio__slideButton">
-          <span id='customPrev' className="portfolio_prev" >&#60;</span>
-            <p ref={current_slide} id="firstLetter" className="firstLetter"></p>
-            <p className="delimiter">/</p>
-            <p ref={quantity_slide} id="delimiter"></p>
-            <span id='customNext' className="portfolio_next" >&#62;</span>
-          </div>
   </section>
 
   <section className="courses">
@@ -558,62 +609,50 @@ const Home: React.FC = (): React.ReactElement => {
           <SlickSlider {...settingsTwo}>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           <div>
             <div className="services__box insta__box">
-              <a href="/">
                 <img src="/img/services_1.png" alt="" />
-                <div className="insta__box__bg_hover">
+                <a href="/" className='insta__box__bg_hover'>
                   <img src="/img/instagram.svg" alt="" />
-                </div>
-              </a>
+                </a>
             </div>
           </div>
           </SlickSlider>
