@@ -8,12 +8,22 @@ const Home: React.FC = (): React.ReactElement => {
     slidesToScroll: 1,
     dots: true,
     dotsClass: "slider_dots",
+    draggable: false,
     responsive: [
       {
         breakpoint: 900,
         settings: {
           arrows: false,
-          slidesToShow: 2.5
+          slidesToShow: 2.5,
+          draggable: true,
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          arrows: false,
+          slidesToShow: 1.5,
+          draggable: true,
         }
       },
     ]
@@ -478,6 +488,7 @@ const Home: React.FC = (): React.ReactElement => {
 
   <section className="about">
     <div className="about__wrap">
+      <p className="title about_title_desc">Обо мне</p>
       <div className="about__contentWrap">
         <div className="about__box">
           <div className="about__box__title">
@@ -495,7 +506,9 @@ const Home: React.FC = (): React.ReactElement => {
             <label>Записаться</label>
           </div>
           <img className="about_paint" src="/img/about_paint.png" alt="" />
-          <img className="about_photo" src="/img/about_photo.png" alt="" />
+          <div className="about_photo">
+            <img src="/img/about_photo.png" alt="" />
+          </div>
           <img className="about_quotes" src="/img/about_quotes.png" alt="" />
         </div>
         <div className="about__sn">
@@ -671,8 +684,8 @@ const Home: React.FC = (): React.ReactElement => {
           <input type="text" placeholder="Имя" required />
           <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Номер телефона" title="000-000-0000" required />
           <input type="text" placeholder="Дата" required />
-          <select>
-            <option selected disabled>Тип макияжа</option>
+          <select defaultValue={'DEFAULT'}>
+            <option value="DEFAULT" disabled>Тип макияжа</option>
             <option value="Свадебный макияж">Свадебный макияж</option>
             <option value="Ночной макияж">Ночной макияж</option>
             <option value="Дневной макияж">Дневной макияж</option>
