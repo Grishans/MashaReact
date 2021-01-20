@@ -35,6 +35,24 @@ const Home: React.FC = (): React.ReactElement => {
     slidesToScroll: 1,
     dots: true,
     dotsClass: "slider_dots",
+    responsive: [
+      {
+        breakpoint: 900,
+        settings: {
+          arrows: false,
+          slidesToShow: 2.5,
+          draggable: true,
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          arrows: false,
+          slidesToShow: 1.5,
+          draggable: true,
+        }
+      },
+    ]
   }
 
   const WeedingRef = React.useRef<HTMLUListElement>(null)
@@ -49,6 +67,11 @@ const Home: React.FC = (): React.ReactElement => {
   const navShow = React.useCallback(()=>{
     setHeaderNav((prev) => !prev)
   },[])
+
+  const reviews_video = React.useRef<HTMLDivElement>(null)
+  const reviews_text = React.useRef<HTMLDivElement>(null)
+  const reviews_video_inp = React.useRef<HTMLInputElement>(null)
+  const reviews_text_inp = React.useRef<HTMLInputElement>(null)
 
 
   const customSlider = React.useCallback(() => {
@@ -172,7 +195,23 @@ const Home: React.FC = (): React.ReactElement => {
         reviewsText.current!.style.visibility = "hidden"
 
         document.getElementById('labelWeeding')?.click() // если не кликнуть на любой toogle, то цифры в слайдере не появятся (костыль)
-        
+///////////////////////////////////////////////////////////////
+      reviews_video.current?.addEventListener('click', ()=>{
+        if(window.screen.availWidth<900 && reviews_video_inp.current?.checked){
+          reviews_video.current!.style.background = '#F9F5F1'
+          reviews_text.current!.style.background = "#fff"
+        }
+      })       
+      reviews_text.current?.addEventListener('click', ()=>{
+        if(window.screen.availWidth<900 && reviews_text_inp.current?.checked){
+          reviews_video.current!.style.background = '#fff'
+          reviews_text.current!.style.background = "#F9F5F1"
+        }
+      })
+      if(window.screen.availWidth<900){
+        reviews_video.current!.style.background = '#F9F5F1'
+        reviews_text.current!.style.background = "#fff"
+      }// задний фон на toogle в отзывах на мобилке
 
   },[])
   React.useEffect(() => {
@@ -358,6 +397,28 @@ const Home: React.FC = (): React.ReactElement => {
               </li>
             </ul>
           </div>
+          <div className="slider port__slider__mobil">
+            <SlickSlider {...settingsOne}>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_3.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_3.png" alt="" />
+              </div>
+            </SlickSlider>
+          </div>
         </div>        
 
         <div id="portfolio__night">
@@ -405,6 +466,28 @@ const Home: React.FC = (): React.ReactElement => {
               </li>
             </ul>
           </div>
+          <div className="slider port__slider__mobil">
+            <SlickSlider {...settingsOne}>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_3.png" alt="" />
+              </div>
+            </SlickSlider>
+          </div>
         </div>        
 
         <div id="portfolio__day">
@@ -444,14 +527,34 @@ const Home: React.FC = (): React.ReactElement => {
               </li>
             </ul>
           </div>
-
-          
+          <div className="slider port__slider__mobil">
+            <SlickSlider {...settingsOne}>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_1.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_2.png" alt="" />
+              </div>
+              <div>
+                <img src="/img/services_3.png" alt="" />
+              </div>
+            </SlickSlider>
+          </div>
         </div>        
       </div>
     </div>
     <div className="title__top_left"></div>
     <div className="title__top_right"></div>
-
+    
   </section>
 
   <section className="courses">
@@ -523,10 +626,15 @@ const Home: React.FC = (): React.ReactElement => {
   <section className="services reviews">
     <p className="title">Отзывы</p>
     <div className="reviews__toogle">
-      <input id="video" name="reviews" type="radio" checked />
-      <label id="review_video" htmlFor="video">Видео отзывы</label>
-      <input id="text" name="reviews" type="radio" />
-      <label id="review_text" htmlFor="text">Текстовые отзывы</label>
+      <div ref={reviews_video} className="rev__toogle_wrap">
+        <input ref={reviews_video_inp} id="video" name="reviews" type="radio" checked />
+        <label id="review_video" htmlFor="video">Видео отзывы</label>
+      </div>
+      <div ref={reviews_text} className="rev__toogle_wrap">
+        <input ref={reviews_text_inp} id="text" name="reviews" type="radio" />
+        <label id="review_text" htmlFor="text">Текстовые отзывы</label>
+      </div>
+      
     </div>
     <div className="reviews__wrap">
       <div ref={reviewsVideo} className="services__wrap reviews__wrap__videoReviews">

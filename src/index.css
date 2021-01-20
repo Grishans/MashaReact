@@ -324,13 +324,15 @@ section.services .slick-initialized .slick-slide {
 
 /* Portfolio */
 
+.port__slider__mobil {
+  display: none;
+}
 section.portfolio {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .portolio__wrap {
   position: relative;
   width: 77%;
@@ -672,8 +674,16 @@ section.reviews .title__top_right {
   background: #f9f5f1;
 }
 .reviews__toogle {
+  display: flex;
+  justify-content: center;
   text-align: center;
   margin-top: 50px;
+}
+.rev__toogle_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
 }
 .reviews__toogle input {
   display: none;
@@ -779,15 +789,7 @@ a.insta__box__bg_hover img {
 .insta__box:hover a.insta__box__bg_hover img {
   opacity: 1;
 }
-/* section.instagram .services__wrap .slider .slick-prev,
-section.instagram .services__wrap .slider .slick-next {
-  top: 77.4%;
-  z-index: 99;
-}
-section.instagram .services__wrap .slider ul.slider_dots {
-  position: absolute;
-  top: 70%;
-} */
+
 /* Form */
 
 section.form {
@@ -948,6 +950,9 @@ footer {
 /* Adaptation */
 
 @media (max-width: 900px) {
+  #root {
+    overflow: hidden;
+  }
   header {
     overflow: hidden;
   }
@@ -1027,6 +1032,39 @@ footer {
   }
 
   /* Portfolio */
+  section.portfolio {
+    background: #f9f5f1;
+    padding-bottom: 30px;
+  }
+  .port__slider__mobil {
+    display: block;
+    margin-left: 6%;
+  }
+  .portolio__wrap {
+    width: 100%;
+  }
+  .port__slider {
+    display: none;
+  }
+  .portfolio__slideButton {
+    display: none;
+  }
+  .slick-slide img {
+    width: 95%;
+  }
+  .portfolio__toogle {
+    display: flex;
+    align-items: center;
+    overflow: scroll;
+    height: 65px;
+    background: #fff;
+    margin-bottom: 30px;
+  }
+  .portfolio__toogle label {
+    white-space: nowrap;
+    margin: 0;
+    margin-right: 4%;
+  }
 
   /* Courses */
 
@@ -1046,6 +1084,9 @@ footer {
     margin-bottom: 40px;
     padding-top: 20px;
     height: 363px;
+  }
+  .courses__box span {
+    width: 100%;
   }
 
   /* about */
@@ -1080,7 +1121,7 @@ footer {
     justify-content: center;
     align-items: center;
     top: -24%;
-    left: 13%;
+    left: 26%;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 50%;
@@ -1095,5 +1136,96 @@ footer {
   }
   .about__box__title p {
     margin: 0 0 0 10%;
+  }
+
+  /* reviews */
+  .rev__toogle_wrap {
+    width: 50%;
+    height: 50px;
+    user-select: none;
+    background: #fff;
+  }
+  .reviews__toogle label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .reviews__wrap {
+    height: 660px;
+  }
+
+  /* form */
+
+  .form__wrap {
+    width: 100%;
+  }
+  .form__application {
+    width: 100%;
+    padding-bottom: 40px;
+  }
+  .form_img {
+    display: none;
+  }
+  .form__application form {
+    width: 90%;
+  }
+
+  /* footer */
+
+  .footer__logo a {
+    width: 90%;
+  }
+  .footer__nav {
+    width: 100%;
+  }
+  .footer__nav ul {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+  }
+  .footer__nav ul a li {
+    font-size: 24px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+  .footer__bottom {
+    flex-flow: column;
+    align-items: center;
+    flex-direction: column;
+  }
+  .footer__copywriting {
+    order: 2;
+  }
+  .footer__sn {
+    order: 1;
+  }
+  .footer__sn a {
+    width: auto;
+    margin: 0 35px;
+  }
+  .footer__sn a img {
+    width: 130%;
+  }
+  .footer__copywriting p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  /* about */
+  .about__box .about_photo {
+    top: -19%;
+    left: 13%;
+    width: 260px;
+    height: 260px;
+  }
+
+  /* reviews */
+
+  .reviews__wrap {
+    height: 560px;
   }
 }
