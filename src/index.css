@@ -296,7 +296,7 @@ section.services .slick-initialized .slick-slide {
   height: 72.1%;
   width: 12.6%;
   background: #fff;
-  bottom: 14.2%;
+  bottom: 12.6%;
   right: 0;
   opacity: 0.6;
   transition: 0.2s;
@@ -349,9 +349,9 @@ section.portfolio {
 .portfolio__toogle input {
   display: none;
 }
-.portfolio__toogle input:checked + label {
+/* .portfolio__toogle input:checked + label {
   color: #aa4d54;
-}
+} */
 .portfolio__toogle label {
   margin: 0 2%;
   font-size: 18px;
@@ -776,7 +776,7 @@ a.insta__box__bg_hover {
   top: 0;
   left: 0;
   width: 100%;
-  height: 70%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0);
   transition: 0.3s;
 }
@@ -949,6 +949,16 @@ footer {
 
 /* Adaptation */
 
+@media (max-width: 1440px) {
+  .services__box {
+    width: 95%;
+  }
+}
+@media (max-width: 1200px) {
+  p.services__box__article {
+    font-size: 20px;
+  }
+}
 @media (max-width: 900px) {
   #root {
     overflow: hidden;
@@ -1055,13 +1065,14 @@ footer {
   .portfolio__toogle {
     display: flex;
     align-items: center;
-    overflow: scroll;
+    overflow: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
     height: 65px;
     background: #fff;
     margin-bottom: 30px;
   }
   .portfolio__toogle label {
-    white-space: nowrap;
     margin: 0;
     margin-right: 4%;
   }
@@ -1214,6 +1225,21 @@ footer {
   }
 }
 
+@media (max-width: 580px) {
+  .header__nav .header__main__language {
+    width: 14%;
+  }
+  .header__main__text p {
+    font-size: 14px;
+  }
+  .header__main__text button {
+    width: 55%;
+  }
+  .header__main__sn {
+    padding-top: 20px;
+  }
+}
+
 @media (max-width: 450px) {
   /* about */
   .about__box .about_photo {
@@ -1227,5 +1253,14 @@ footer {
 
   .reviews__wrap {
     height: 560px;
+  }
+  .header__nav .header__main__language {
+    width: 20%;
+  }
+}
+
+@media (max-width: 350px) {
+  .header__nav .header__main__language {
+    width: 22%;
   }
 }
