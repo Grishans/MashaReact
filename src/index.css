@@ -19,6 +19,19 @@ body {
   font-weight: 400;
   font-size: 14px;
 }
+#root {
+  position: relative;
+}
+
+#scrollUp {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.5s ease-in;
+}
 
 /* Header */
 header {
@@ -113,8 +126,9 @@ header {
   color: #aa4d54;
   font-size: 20px;
 }
-.header__main__text button {
-  padding: 10px 20px;
+.header__main__text a {
+  padding: 15px 20px;
+  text-align: center;
   color: #aa4d54;
   background: #fff;
   border: none;
@@ -122,8 +136,9 @@ header {
   cursor: pointer;
   transition: 0.3s;
   width: 25%;
+  text-decoration: none;
 }
-.header__main__text button:hover {
+.header__main__text a:hover {
   box-shadow: 0px 0px 4px #a74650;
 }
 .header__main__sn {
@@ -1232,7 +1247,7 @@ footer {
   .header__main__text p {
     font-size: 14px;
   }
-  .header__main__text button {
+  .header__main__text a {
     width: 55%;
   }
   .header__main__sn {
@@ -1263,4 +1278,127 @@ footer {
   .header__nav .header__main__language {
     width: 22%;
   }
+}
+
+/*  A D M I N   */
+
+.adminWrap {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 20%;
+}
+
+.adminHeader {
+  display: flex;
+  height: 130px;
+  background: #f9f5f1;
+}
+.ah__logo {
+  height: 100%;
+}
+.ah__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dcbfa5;
+  height: 100%;
+  width: 17%;
+}
+.ah__logo img {
+  width: 90%;
+  height: auto;
+}
+
+.adminLeftNav {
+  position: fixed;
+  top: 130px;
+  left: 0;
+  width: 17%;
+  height: 100%;
+  background: #f9f5f1;
+}
+.adminLeftNav ul {
+  margin: 0;
+  padding: 0;
+}
+.adminLeftNav ul li {
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+.adminLeftNav ul li p {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  padding: 0 0 0 20px;
+  height: 100%;
+  border-bottom: 4px solid transparent;
+  font-family: Open Sans;
+  font-weight: 400;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.adminLeftNav ul li p:hover {
+  border-bottom: 4px solid #aa4d54;
+  background: #fff;
+  padding-left: 40px;
+  font-weight: 600;
+}
+label.adminToogle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dcbfa5;
+  color: #fff;
+  width: 18%;
+  height: 50px;
+}
+
+/* Admin SocNet */
+
+.socNetWrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  background: #f5f5f5;
+  border: 1px solid #dcbfa5;
+  box-sizing: border-box;
+  padding: 40px;
+}
+.asn__box {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 50px;
+}
+.asn__box label {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.asn__box input {
+  width: 80%;
+}
+input.adminInput {
+  border: 1px solid #cdcdcd;
+  box-sizing: border-box;
+  height: 35px;
+  outline: none;
+  padding: 0 10px 0 10px;
+}
+.socNetWrap button {
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  border: 2px solid #aeaeae;
+  box-sizing: border-box;
+  color: #696969;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
 }

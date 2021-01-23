@@ -260,11 +260,18 @@ const Home: React.FC = (): React.ReactElement => {
     }
   }, []);
 
+  const BtnUp = React.useCallback(() => {
+    document.querySelector("#scrollUp")?.addEventListener("click", () => {
+      window.scrollTo(0, 0);
+    });
+  }, []);
+
   React.useEffect(() => {
     customSlider();
     review();
     whiteOpacity();
-  }, [customSlider, review, whiteOpacity]);
+    BtnUp();
+  }, [customSlider, review, whiteOpacity, BtnUp]);
   return (
     <>
       <header>
@@ -303,7 +310,7 @@ const Home: React.FC = (): React.ReactElement => {
             <div className="header__main__text">
               <img src="/img/logo_white.svg" alt="" />
               <p>Услуги визажиста и стилиста по прическам на выезд</p>
-              <button>Записаться</button>
+              <a href="#form">Записаться</a>
             </div>
             <img src="/img/main-girl.png" alt="" className="girl" />
             <div className="header__main__sn">
@@ -986,6 +993,8 @@ const Home: React.FC = (): React.ReactElement => {
           </div>
         </div>
       </footer>
+
+      <div id="scrollUp">Вверх</div>
     </>
   );
 };
