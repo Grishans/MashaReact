@@ -1373,7 +1373,7 @@ label.adminToogle {
   width: 50%;
   margin-bottom: 50px;
 }
-.asn__box label {
+label.adminLabel {
   font-family: Open Sans;
   font-style: normal;
   font-weight: 600;
@@ -1401,4 +1401,173 @@ input.adminInput {
   width: 200px;
   height: 40px;
   cursor: pointer;
+}
+
+/* Admin BTN */
+
+button.adminADD {
+  width: 130px;
+  height: 36px;
+  color: #197bbd;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  border: 2px solid #1e7fc1;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button.adminADD:hover {
+  border-color: #fff;
+  background: #1e7fc1;
+  color: #fff;
+}
+button.adminSAVE {
+  width: 130px;
+  height: 36px;
+  color: #aa4d54;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  border: 2px solid #aa4d54;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button.adminSAVE:hover {
+  border-color: #fff;
+  background: #aa4d54;
+  color: #fff;
+}
+img.adminCross {
+  cursor: pointer;
+}
+.ant-select {
+  position: relative;
+  width: 200px;
+  border: 2px solid #aeaeae;
+  background: #fff;
+  color: #000;
+  margin-right: 30px !important;
+}
+.ant-select:hover {
+  border-color: #aeaeae;
+}
+
+/* Admin Services */
+
+.admin__sevices__wrap {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 16px 30px;
+  background: #f5f5f5;
+  border: 1px solid #e3cdba;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+.admin__services__btn {
+  margin-bottom: 20px;
+}
+.admin__services__btn button {
+  margin-right: 30px;
+}
+.admin__service__content__wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin__service__comtent__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  width: 30%;
+  box-sizing: border-box;
+  min-height: 600px;
+  margin-bottom: 40px;
+  margin-right: 3%;
+}
+.ascb__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3% 0 5%;
+  height: 45px;
+}
+.admin__service__comtent__box hr {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #dcbfa5;
+  margin-bottom: 20px;
+}
+.ascb__inputs {
+  display: flex;
+  flex-direction: column;
+}
+.ascb__inputs__insert {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5%;
+}
+.ascb__inputs__insert input {
+  margin-bottom: 20px;
+}
+.ascb__inputs__img {
+  position: relative;
+}
+.ascb__inputs__addImg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.ascb__inputs__img img {
+  width: 100%;
+  max-height: 460px;
+}
+.ascb__inputs__addImg label {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.ascb__inputs__addImg:hover label {
+  background: rgba(0, 0, 0, 0.8);
+}
+.ascb__inputs__addNew {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #cdcdcd;
+  min-height: 460px;
+  max-height: 460px;
+  cursor: pointer;
+}
+.ascb__inputs__addNew img {
+  width: 20%;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.ascb__inputs__addNew:hover img {
+  transform: scale(1.3);
+}
+
+/* Admin Portfolio */
+
+.admin__portfolio__title {
+  display: flex;
+  flex-direction: column;
+}
+.admin__portfolio__title input {
+  width: 300px;
+}
+
+.admin__portfolio__wrap {
+  position: relative;
 }
