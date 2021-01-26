@@ -20,7 +20,7 @@ const AdminServices = () => {
         </div>
         <div className="admin__service__content__wrap">
           {addBox && (
-            <div className="admin__service__comtent__box">
+            <div className="admin__content__box admin__service__comtent__box">
               <div className="ascb__title">
                 <label>Новая услуга</label>
                 <AdminBTN Cross />
@@ -47,15 +47,16 @@ const AdminServices = () => {
                     placeholder="Введите время затрат"
                   />
                 </div>
-                <div className="ascb__inputs__img">
-                  <div className="ascb__inputs__addNew">
+                <div className="ascb__inputs__addNew">
+                  <input id="inpFile" type="file" />
+                  <label htmlFor="inpFile">
                     <img src="/img/admin_camera.png" alt="" />
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>
           )}
-          <div className="admin__service__comtent__box">
+          <div className="admin__content__box admin__service__comtent__box">
             <div className="ascb__title">
               <label>Новая услуга</label>
               <AdminBTN Cross />
@@ -90,7 +91,7 @@ const AdminServices = () => {
               </div>
             </div>
           </div>
-          <div className="admin__service__comtent__box">
+          <div className="admin__content__box admin__service__comtent__box">
             <div className="ascb__title">
               <label>Новая услуга</label>
               <AdminBTN Cross />
@@ -125,7 +126,7 @@ const AdminServices = () => {
               </div>
             </div>
           </div>
-          <div className="admin__service__comtent__box">
+          <div className="admin__content__box admin__service__comtent__box">
             <div className="ascb__title">
               <label>Новая услуга</label>
               <AdminBTN Cross />
@@ -160,7 +161,7 @@ const AdminServices = () => {
               </div>
             </div>
           </div>
-          <div className="admin__service__comtent__box">
+          <div className="admin__content__box admin__service__comtent__box">
             <div className="ascb__title">
               <label>Новая услуга</label>
               <AdminBTN Cross />

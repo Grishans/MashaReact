@@ -1,5 +1,6 @@
 import React from "react";
 import AdminBTN from "../AdminBTN";
+import { Select } from "antd";
 
 const AdminPortfolio: React.FC = (): React.ReactElement => {
   const WeedingRef = React.useRef<HTMLUListElement>(null);
@@ -8,18 +9,17 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
   const current_slide = React.useRef<HTMLParagraphElement>(null);
   const quantity_slide = React.useRef<HTMLParagraphElement>(null);
 
-  const customSlider = React.useCallback(() => {
+  const { Option } = Select;
+
+  function handleChange(value: any) {
     var step: any;
     var quantity: any;
     var slideWidth: any;
     var currentSlide: any;
-    var Weeding = document.querySelector("#labelWeeding");
-    var Night = document.querySelector("#labelNight");
-    var Day = document.querySelector("#labelDay");
     var customPrev = document.querySelector("#customPrev");
     var customNext = document.querySelector("#customNext");
 
-    Weeding!.addEventListener("click", () => {
+    if (value === "Weeding") {
       document.getElementById("portfolio__weeding")!.style.display = "block";
       document.getElementById("portfolio__night")!.style.display = "none";
       document.getElementById("portfolio__day")!.style.display = "none";
@@ -35,13 +35,8 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
       current_slide.current!.innerHTML = String(currentSlide);
       quantity_slide.current!.innerHTML = String(quantity);
       WeedingRef.current!.style.left = "0px";
-
-      Weeding?.setAttribute("style", "color:#aa4d54");
-      Night?.setAttribute("style", "color:#000");
-      Day?.setAttribute("style", "color:#000");
-    });
-    ///////////////////////////////////////////////////////////
-    Night!.addEventListener("click", () => {
+      console.log(value);
+    } else if (value === "Night") {
       document.getElementById("portfolio__weeding")!.style.display = "none";
       document.getElementById("portfolio__night")!.style.display = "block";
       document.getElementById("portfolio__day")!.style.display = "none";
@@ -57,13 +52,8 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
       NightRef.current!.style.left = "0px";
       current_slide.current!.innerHTML = String(currentSlide);
       quantity_slide.current!.innerHTML = String(quantity);
-
-      Weeding?.setAttribute("style", "color:#000");
-      Night?.setAttribute("style", "color:#aa4d54");
-      Day?.setAttribute("style", "color:#000");
-    });
-    ///////////////////////////////////////////////////////////
-    Day!.addEventListener("click", () => {
+      console.log(value);
+    } else if (value === "Day") {
       document.getElementById("portfolio__weeding")!.style.display = "none";
       document.getElementById("portfolio__night")!.style.display = "none";
       document.getElementById("portfolio__day")!.style.display = "block";
@@ -79,11 +69,8 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
       DayRef.current!.style.left = "0px";
       current_slide.current!.innerHTML = String(currentSlide);
       quantity_slide.current!.innerHTML = String(quantity);
-
-      Weeding?.setAttribute("style", "color:#000");
-      Night?.setAttribute("style", "color:#000");
-      Day?.setAttribute("style", "color:#aa4d54");
-    });
+      console.log(value);
+    }
 
     customPrev!.addEventListener("click", () => {
       slideWidth -= step.offsetWidth;
@@ -116,28 +103,28 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
       }
       current_slide.current!.innerHTML = currentSlide;
     });
+  }
 
-    document.getElementById("labelWeeding")?.click(); // если не кликнуть на любой toogle, то цифры в слайдере не появятся (костыль, наверное)
-    ///////////////////////////////////////////////////////////////
-  }, []);
-
-  React.useEffect(() => {
-    customSlider();
-  }, [customSlider]);
   return (
     <>
       <div className="admin__sevices__wrap">
         <div className="admin__services__btn">
-          <AdminBTN DropDn />
+          <Select defaultValue="Свадебный макияж" onChange={handleChange}>
+            <Option id="labelWeeding" value="Weeding">
+              Свадебный макияж
+            </Option>
+            <Option id="labelNight" value="Night">
+              Вечерний макияж
+            </Option>
+            <Option id="labelDay" value="Day">
+              Дневной макияж
+            </Option>
+          </Select>
           <AdminBTN Save />
         </div>
         <div className="admin__portfolio__title">
           <label>Изменить название</label>
-          <input
-            placeholder="Свадебный вакияж"
-            className="adminInput"
-            type="text"
-          />
+          <input value="Свадебный макияж" className="adminInput" type="text" />
         </div>
 
         <div className="admin__portfolio__wrap">
@@ -153,44 +140,104 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
             </span>
           </div>
           <div className="portfolio__section">
-            <div className="portfolio__toogle">
-              <label id="labelWeeding" htmlFor="weeding">
-                Свадебный макияж
-              </label>
-              <label id="labelNight" htmlFor="night">
-                Вечерний макияж
-              </label>
-              <label id="labelDay" htmlFor="day">
-                Дневной макияж
-              </label>
-            </div>
-
             <div id="portfolio__weeding">
               <div className="port__slider">
                 <ul id="ul" ref={WeedingRef}>
                   <li>
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                   <li>
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                   <li>
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -200,44 +247,36 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
               <div className="port__slider">
                 <ul id="ul" ref={NightRef}>
                   <li>
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                  </li>
-                  <li>
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                  </li>
-                  <li>
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                  </li>
-                  <li>
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                  </li>
-                  <li>
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -247,36 +286,164 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
               <div className="port__slider">
                 <ul id="ul" ref={DayRef}>
                   <li>
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
-                    <img src="/img/services_3.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                   <li>
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
-                    <img src="/img/services_1.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                   <li>
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                   <li>
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
-                    <img src="/img/services_2.png" alt="" />
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="1" type="file" />
+                      <label htmlFor="1">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="2" type="file" />
+                      <label htmlFor="2">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="3" type="file" />
+                      <label htmlFor="3">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_1.png" alt="" />
+                      <input id="4" type="file" />
+                      <label htmlFor="4">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_2.png" alt="" />
+                      <input id="5" type="file" />
+                      <label htmlFor="5">Изменить фотографию</label>
+                    </div>
+                    <div className="admin__portfolio__img__change">
+                      <img src="/img/services_3.png" alt="" />
+                      <input id="6" type="file" />
+                      <label htmlFor="6">Изменить фотографию</label>
+                    </div>
                   </li>
                 </ul>
               </div>

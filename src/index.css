@@ -656,6 +656,7 @@ section.about {
 .about__box .about_photo img {
   position: relative;
   width: 100%;
+  border: 10px solid #fff;
 }
 .about__box img.about_quotes {
   top: 2%;
@@ -1356,6 +1357,16 @@ label.adminToogle {
   height: 50px;
 }
 
+.admin__content__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  margin-right: 3%;
+}
+
 /* Admin SocNet */
 
 .socNetWrap {
@@ -1384,6 +1395,13 @@ label.adminLabel {
   width: 80%;
 }
 input.adminInput {
+  border: 1px solid #cdcdcd;
+  box-sizing: border-box;
+  height: 35px;
+  outline: none;
+  padding: 0 10px 0 10px;
+}
+textarea.adminInput {
   border: 1px solid #cdcdcd;
   box-sizing: border-box;
   height: 35px;
@@ -1477,15 +1495,8 @@ img.adminCross {
   flex-wrap: wrap;
 }
 .admin__service__comtent__box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #fff;
   width: 30%;
-  box-sizing: border-box;
   min-height: 600px;
-  margin-bottom: 40px;
-  margin-right: 3%;
 }
 .ascb__title {
   display: flex;
@@ -1494,7 +1505,7 @@ img.adminCross {
   padding: 0 3% 0 5%;
   height: 45px;
 }
-.admin__service__comtent__box hr {
+.admin__sevices__wrap hr {
   width: 100%;
   border: none;
   border-bottom: 1px solid #dcbfa5;
@@ -1549,6 +1560,17 @@ img.adminCross {
   max-height: 460px;
   cursor: pointer;
 }
+.ascb__inputs__addNew input {
+  display: none;
+}
+.ascb__inputs__addNew label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
 .ascb__inputs__addNew img {
   width: 20%;
   transition: 0.3s;
@@ -1567,7 +1589,243 @@ img.adminCross {
 .admin__portfolio__title input {
   width: 300px;
 }
-
 .admin__portfolio__wrap {
   position: relative;
+}
+.admin__sevices__wrap .portfolio__slideButton {
+  right: 44%;
+  top: -4%;
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change
+  img {
+  width: 100%;
+  height: 100%;
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change {
+  position: relative;
+  width: 32%;
+  margin: 5px;
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change:nth-child(even) {
+  height: 32.5%;
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change:nth-child(5) {
+  transform: translateY(-34%);
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change
+  input {
+  display: none;
+}
+.admin__portfolio__wrap
+  .portfolio__section
+  ul#ul
+  li
+  .admin__portfolio__img__change
+  label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  cursor: pointer;
+  margin: 0 5px 0 5px;
+}
+
+/* Admin Courses */
+
+.adminCourses__wrap {
+  display: flex;
+  padding-top: 30px;
+}
+.adminCourses__box {
+  height: 460px;
+  width: 300px;
+  padding: 25px;
+}
+.adminCourses__box hr {
+  width: calc(100% + 50px);
+  margin-left: -25px;
+}
+.adminCourses__box textarea {
+  height: 60%;
+}
+.adminCourses__box input {
+  margin-bottom: 20px;
+}
+
+/* Admin About */
+
+.admin__about__box {
+  margin-top: 30px;
+  position: relative;
+  padding: 25px;
+  width: 100%;
+}
+.admin__about__box p.adminAbout__remainder {
+  position: absolute;
+  right: 5%;
+  top: 11%;
+}
+.admin__about__box input {
+  margin-bottom: 30px;
+}
+.admin__about__box textarea {
+  padding-top: 10px;
+  min-height: 520px;
+}
+p.adminAbout__remainder span {
+  font-weight: 800;
+}
+.admin__about__photo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.aap__box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  overflow: hidden;
+}
+.aap__box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.Admin__change {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.Admin__change input {
+  display: none;
+}
+.Admin__change label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.Admin__change label:hover {
+  transform: scale(1.1);
+}
+
+/* Admin Reviews */
+
+.admin__reviews__BTN {
+  display: flex;
+  flex-wrap: wrap;
+  width: 35%;
+  height: 120px;
+  align-items: baseline;
+}
+.amdin__reviews__content__wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.arcw__video__wrap {
+  display: flex;
+  margin-top: 30px;
+}
+.arcw__box {
+  position: relative;
+  width: 30%;
+  margin-right: 30px;
+}
+.arcw__bottomImg img {
+  width: 100%;
+}
+.arcw__box .ascb__inputs__addNew {
+  min-height: 600px;
+}
+.arcw__box .Admin__change {
+  margin-bottom: 2%;
+}
+.arcw__top {
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+  padding-right: 20px;
+  background: #fff;
+}
+.arcw__top img {
+  cursor: pointer;
+}
+.arcw__bottomImg {
+  width: 100%;
+}
+.arcw__bottomImg video {
+  width: 100%;
+}
+.arcw__text__wrap {
+  display: flex;
+}
+
+/* Admin Instagram */
+.AdminInst__wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin__inst__box {
+  position: relative;
+  width: 30%;
+  margin-top: 20px;
+}
+.aib__cross {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 47px;
+}
+.aib__cross img {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.aib__input {
+  display: flex;
+  flex-direction: column;
+  padding: 0 25px;
+  margin-bottom: 15px;
+}
+.aib__img img {
+  width: 100%;
+}
+.AdminInst__btn {
+  display: flex;
+  justify-content: space-between;
+  width: 25%;
 }
