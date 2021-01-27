@@ -1,6 +1,7 @@
 import React from "react";
 import AdminAbout from "../copmonent/Admin/AdminAbout";
 import AdminCourses from "../copmonent/Admin/AdminCourses";
+import AdminFeedback from "../copmonent/Admin/AdminFeedback";
 import AdminInst from "../copmonent/Admin/AdminInsta";
 import AdminPortfolio from "../copmonent/Admin/AdminPortfolio";
 import AdminReviews from "../copmonent/Admin/AdminReviews";
@@ -127,6 +128,7 @@ const Admin: React.FC = (): React.ReactElement => {
           {menu === "about" && <AdminAbout />}
           {menu === "reviews" && <AdminReviews />}
           {menu === "inst" && <AdminInst />}
+          {menu === "feedback" && <AdminFeedback />}
         </div>
       </div>
     </>

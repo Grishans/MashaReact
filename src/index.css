@@ -56,21 +56,11 @@ header {
 .header__nav img {
   cursor: pointer;
 }
-@keyframes navShow {
-  from {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+
 .header__nav ul.main_nav {
   display: flex;
   position: relative;
-  animation-name: navShow;
-  animation-duration: 0.3s;
+  transition: 0.3s;
 }
 .header__nav ul.main_nav a {
   text-decoration: none;
@@ -78,7 +68,6 @@ header {
   margin-left: 20px;
   position: relative;
   line-height: 1;
-  transition: 0.3s;
 }
 .header__nav ul.main_nav a::after {
   display: block;
@@ -311,7 +300,7 @@ section.services .slick-initialized .slick-slide {
   height: 72.1%;
   width: 12.6%;
   background: #fff;
-  bottom: 12.6%;
+  bottom: 10.4%;
   right: 0;
   opacity: 0.6;
   transition: 0.2s;
@@ -488,6 +477,7 @@ section.courses {
   align-items: center;
   background: #fcf0e4;
   padding: 0 0 6% 0;
+  overflow: hidden;
 }
 .courses__wrap {
   width: 77%;
@@ -503,7 +493,7 @@ section.courses {
   flex-direction: column;
   align-items: center;
   background: #fff;
-  width: 25%;
+  width: 30%;
   height: 432px;
   margin-right: 3%;
   padding: 2% 3%;
@@ -965,9 +955,20 @@ footer {
 
 /* Adaptation */
 
+@media (max-width: 1300px) {
+  .courses__box span {
+    font-size: 18px;
+  }
+  .courses__box ul li {
+    font-size: 14px;
+  }
+}
 @media (max-width: 1440px) {
   .services__box {
     width: 95%;
+  }
+  .header__main__text a {
+    width: 35%;
   }
 }
 @media (max-width: 1200px) {
@@ -1769,7 +1770,7 @@ p.adminAbout__remainder span {
 .arcw__bottomImg img {
   width: 100%;
 }
-.arcw__box .ascb__inputs__addNew {
+.arcw__video__wrap .arcw__box .ascb__inputs__addNew {
   min-height: 600px;
 }
 .arcw__box .Admin__change {
@@ -1796,6 +1797,7 @@ p.adminAbout__remainder span {
 }
 
 /* Admin Instagram */
+
 .AdminInst__wrap {
   display: flex;
   flex-wrap: wrap;
@@ -1828,4 +1830,61 @@ p.adminAbout__remainder span {
   display: flex;
   justify-content: space-between;
   width: 25%;
+}
+
+/* Admin Feedback */
+
+.admin__feedBack__select {
+  margin-bottom: 30px;
+}
+
+.admin__feedback__toogle {
+  display: flex;
+  margin-bottom: 30px;
+}
+.admin__feedback__toogle input {
+  display: none;
+}
+.admin__feedback__toogle label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  background: #fff;
+  border: 2px solid#AEAEAE;
+  box-sizing: border-box;
+  color: #696969;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.admin__feedback__table table {
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+}
+.admin__feedback__table table tr.adminTableTitle {
+  background: #f5f5f5;
+  border: none;
+}
+.admin__feedback__table table tr {
+  border: 1px solid #dcbfa5;
+  text-align: center;
+  height: 48px;
+}
+.admin__feedback__table table tr th {
+  font-weight: 400;
+  font-family: Open Sans;
+}
+.admin__feedback__table table tr td {
+  text-align: center;
+  font-weight: 600;
+}
+.admin__feedback__table table tr td.adminTDActive {
+  border-right: 1px solid #dcbfa5;
+  cursor: pointer;
+}
+.admin__feedback__table table tr td.adminTDCross {
+  border-left: 1px solid #dcbfa5;
+  cursor: pointer;
 }

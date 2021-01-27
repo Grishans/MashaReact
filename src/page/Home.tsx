@@ -62,11 +62,22 @@ const Home: React.FC = (): React.ReactElement => {
   const quantity_slide = React.useRef<HTMLParagraphElement>(null);
   const reviewsVideo = React.useRef<HTMLDivElement>(null);
   const reviewsText = React.useRef<HTMLDivElement>(null);
+  const Nav = React.useRef<HTMLUListElement>(null);
 
   const [headerNav, setHeaderNav] = React.useState(false);
   const navShow = React.useCallback(() => {
     setHeaderNav((prev) => !prev);
   }, []);
+
+  const navAnimation = React.useCallback(() => {
+    if (headerNav) {
+      Nav.current!.style.transform = "translateY(-50px)";
+      Nav.current!.style.opacity = "0";
+    } else {
+      Nav.current!.style.transform = "translateY(0)";
+      Nav.current!.style.opacity = "1";
+    }
+  }, [headerNav]);
 
   const reviews_video = React.useRef<HTMLDivElement>(null);
   const reviews_text = React.useRef<HTMLDivElement>(null);
@@ -271,32 +282,33 @@ const Home: React.FC = (): React.ReactElement => {
     review();
     whiteOpacity();
     BtnUp();
-  }, [customSlider, review, whiteOpacity, BtnUp]);
+    navAnimation();
+  }, [customSlider, review, whiteOpacity, BtnUp, navAnimation]);
   return (
     <>
       <header>
         <div className="header__wrap">
           <div className="header__nav">
             <img src="/img/burger.svg" alt="" onClick={navShow} />
-            {headerNav && (
-              <ul id="main_nav" className="main_nav">
-                <a href="/">
-                  <li>Услуги</li>
-                </a>
-                <a href="/">
-                  <li>О себе</li>
-                </a>
-                <a href="/">
-                  <li>Портфолио</li>
-                </a>
-                <a href="/">
-                  <li>Отзывы</li>
-                </a>
-                <a href="/">
-                  <li>Курсы</li>
-                </a>
-              </ul>
-            )}
+
+            <ul ref={Nav} id="main_nav" className="main_nav">
+              <a href="/">
+                <li>Услуги</li>
+              </a>
+              <a href="/">
+                <li>О себе</li>
+              </a>
+              <a href="/">
+                <li>Портфолио</li>
+              </a>
+              <a href="/">
+                <li>Отзывы</li>
+              </a>
+              <a href="/">
+                <li>Курсы</li>
+              </a>
+            </ul>
+
             <div className="header__main__language">
               <input id="EN" name="checkLang" type="radio" checked />
               <label htmlFor="EN">EN</label>
@@ -970,7 +982,7 @@ const Home: React.FC = (): React.ReactElement => {
                 <li>Курсы</li>
               </a>
               <a href="/">
-                <li>Социвльные сети</li>
+                <li>Социльные сети</li>
               </a>
             </ul>
           </div>
