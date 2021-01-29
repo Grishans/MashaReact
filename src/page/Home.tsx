@@ -63,6 +63,7 @@ const Home: React.FC = (): React.ReactElement => {
   const reviewsVideo = React.useRef<HTMLDivElement>(null);
   const reviewsText = React.useRef<HTMLDivElement>(null);
   const Nav = React.useRef<HTMLUListElement>(null);
+  const main_navMobil = React.useRef<HTMLUListElement>(null);
 
   const [headerNav, setHeaderNav] = React.useState(false);
   const navShow = React.useCallback(() => {
@@ -70,12 +71,16 @@ const Home: React.FC = (): React.ReactElement => {
   }, []);
 
   const navAnimation = React.useCallback(() => {
-    if (headerNav) {
-      Nav.current!.style.transform = "translateY(-50px)";
+    if (!headerNav) {
+      Nav.current!.style.transform = "translate(40px, -50px)";
       Nav.current!.style.opacity = "0";
+      main_navMobil.current!.style.transform = "translateY(-100vh)";
+      main_navMobil.current!.style.opacity = "0";
     } else {
-      Nav.current!.style.transform = "translateY(0)";
+      Nav.current!.style.transform = "translate(40px, -20px)";
       Nav.current!.style.opacity = "1";
+      main_navMobil.current!.style.transform = "translateY(0)";
+      main_navMobil.current!.style.opacity = "1";
     }
   }, [headerNav]);
 
@@ -292,6 +297,27 @@ const Home: React.FC = (): React.ReactElement => {
             <img src="/img/burger.svg" alt="" onClick={navShow} />
 
             <ul ref={Nav} id="main_nav" className="main_nav">
+              <a href="/">
+                <li>Услуги</li>
+              </a>
+              <a href="/">
+                <li>О себе</li>
+              </a>
+              <a href="/">
+                <li>Портфолио</li>
+              </a>
+              <a href="/">
+                <li>Отзывы</li>
+              </a>
+              <a href="/">
+                <li>Курсы</li>
+              </a>
+            </ul>
+            <ul ref={main_navMobil} id="main_nav" className="main_navMobil">
+              <li onClick={navShow} className="mobilMenuCross">
+                <img src="/img/mobil_cross_menu.svg" alt="" />
+              </li>
+
               <a href="/">
                 <li>Услуги</li>
               </a>

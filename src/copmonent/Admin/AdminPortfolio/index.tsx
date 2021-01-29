@@ -105,6 +105,16 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
     });
   }
 
+  const [portfolioAdd, setPortfolioAdd] = React.useState<boolean>(false);
+
+  const portfolioNewShow = React.useCallback(() => {
+    setPortfolioAdd((prev) => !prev);
+  }, []);
+
+  React.useEffect(() => {
+    const addBTN = document.querySelector<HTMLButtonElement>("#adminADD");
+    addBTN!.onclick = portfolioNewShow;
+  }, [portfolioNewShow]);
   return (
     <>
       <div className="admin__sevices__wrap">
@@ -120,6 +130,7 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
               Дневной макияж
             </Option>
           </Select>
+          <AdminBTN Add />
           <AdminBTN Save />
         </div>
         <div className="admin__portfolio__title">
@@ -143,6 +154,34 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
             <div id="portfolio__weeding">
               <div className="port__slider">
                 <ul id="ul" ref={WeedingRef}>
+                  {portfolioAdd && (
+                    <li>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="1" type="file" />
+                        <label htmlFor="1">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="2" type="file" />
+                        <label htmlFor="2">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="3" type="file" />
+                        <label htmlFor="3">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="4" type="file" />
+                        <label htmlFor="4">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="5" type="file" />
+                        <label htmlFor="5">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="6" type="file" />
+                        <label htmlFor="6">Добавить фотографию</label>
+                      </div>
+                    </li>
+                  )}
                   <li>
                     <div className="admin__portfolio__img__change">
                       <img src="/img/services_1.png" alt="" />
@@ -246,6 +285,34 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
             <div id="portfolio__night">
               <div className="port__slider">
                 <ul id="ul" ref={NightRef}>
+                  {portfolioAdd && (
+                    <li>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="1" type="file" />
+                        <label htmlFor="1">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="2" type="file" />
+                        <label htmlFor="2">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="3" type="file" />
+                        <label htmlFor="3">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="4" type="file" />
+                        <label htmlFor="4">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="5" type="file" />
+                        <label htmlFor="5">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="6" type="file" />
+                        <label htmlFor="6">Добавить фотографию</label>
+                      </div>
+                    </li>
+                  )}
                   <li>
                     <div className="admin__portfolio__img__change">
                       <img src="/img/services_1.png" alt="" />
@@ -285,6 +352,34 @@ const AdminPortfolio: React.FC = (): React.ReactElement => {
             <div id="portfolio__day">
               <div className="port__slider">
                 <ul id="ul" ref={DayRef}>
+                  {portfolioAdd && (
+                    <li>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="1" type="file" />
+                        <label htmlFor="1">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="2" type="file" />
+                        <label htmlFor="2">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="3" type="file" />
+                        <label htmlFor="3">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="4" type="file" />
+                        <label htmlFor="4">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="5" type="file" />
+                        <label htmlFor="5">Добавить фотографию</label>
+                      </div>
+                      <div className="admin__portfolio__img__change portfolioAddNew">
+                        <input id="6" type="file" />
+                        <label htmlFor="6">Добавить фотографию</label>
+                      </div>
+                    </li>
+                  )}
                   <li>
                     <div className="admin__portfolio__img__change">
                       <img src="/img/services_1.png" alt="" />
