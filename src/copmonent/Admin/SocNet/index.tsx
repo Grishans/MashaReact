@@ -18,7 +18,9 @@ const SocNet: React.FC = observer(
 				console.error(`Ошибка Главная: ${error}`)
 			}
 		}
-		//window.stores.push({ home })
+		React.useEffect(() => {
+			home && setEdit(home)
+		}, [home])
 		return (
 			<>
 				<div className='socNetWrap'>

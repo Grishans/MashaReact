@@ -9,11 +9,13 @@ import "slick-carousel/slick/slick-theme.css"
 import { settingsStores } from "./stores/settingsStores"
 import { servicesStores } from "./stores/servicesStores"
 import { coursecStores } from "./stores/coursesStores"
+import { aboutsStores } from "./stores/aboutsStores"
 const store: any[] = [
 	{
 		set: settingsStores.items,
 		serv: servicesStores.items,
-		cours: coursecStores,
+		cours: coursecStores.items,
+		about: aboutsStores.items,
 	},
 ]
 window.stores = store

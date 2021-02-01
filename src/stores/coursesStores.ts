@@ -4,12 +4,12 @@ import { ICourse } from "../types"
 class CoursecStores {
 	items: ICourse[] = [
 		{
-			_id: String(Date.now()),
+			_id: String(Date.now() + Math.round(Math.random() * 10)),
 			title: "Первая услуга",
 			desc: "Описание первой услуги",
 		},
 		{
-			_id: String(Date.now()),
+			_id: String(Date.now() + Math.round(Math.random() * 100)),
 			title: "Вторая услуга",
 			desc: "Описание второй услуги",
 		},

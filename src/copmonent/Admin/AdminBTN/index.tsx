@@ -9,6 +9,7 @@ type TAdminBTNProps = {
 	Cross?: boolean
 	DropDn?: boolean
 	onClick?: () => void
+	disabled?: boolean
 }
 
 const AdminBTN: React.FC<TAdminBTNProps> = ({
@@ -17,6 +18,7 @@ const AdminBTN: React.FC<TAdminBTNProps> = ({
 	Cross,
 	DropDn,
 	onClick,
+	disabled,
 }): React.ReactElement => {
 	const { Option } = Select
 
@@ -31,7 +33,7 @@ const AdminBTN: React.FC<TAdminBTNProps> = ({
 				</button>
 			)}
 			{Save && (
-				<button className='adminSAVE' onClick={onClick}>
+				<button className='adminSAVE' onClick={onClick} disabled={disabled}>
 					Сохранить
 				</button>
 			)}

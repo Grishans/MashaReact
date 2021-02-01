@@ -1,8 +1,8 @@
 import { action, makeObservable, observable } from "mobx"
-import { IService } from "../types"
+import { IReviews } from "../types"
 
-class ServicesStores {
-	items: IService[] = []
+class ReviewsStores {
+	items: IReviews[] = []
 
 	constructor() {
 		makeObservable(
@@ -12,29 +12,29 @@ class ServicesStores {
 		)
 	}
 
-	create = async (obj: IService): Promise<void> => {
+	create = async (obj: IReviews): Promise<void> => {
 		try {
 			this.items.unshift(obj)
 		} catch (error) {
-			console.error(`Ошибка Услуги(Добавление): ${error}`)
+			console.error(`Ошибка Отзывы(Добавление): ${error}`)
 		}
 	}
-	edit = async (obj: IService): Promise<void> => {
+	edit = async (obj: IReviews): Promise<void> => {
 		try {
 			this.items = this.items.map((item) =>
 				item._id === obj._id ? (item = obj) : item,
 			)
 		} catch (error) {
-			console.error(`Ошибка Услуги(Редактирование): ${error}`)
+			console.error(`Ошибка Отзывы(Редактирование): ${error}`)
 		}
 	}
 	delete = async (id: string): Promise<void> => {
 		try {
 			this.items = this.items.filter((item) => item._id !== id)
 		} catch (error) {
-			console.error(`Ошибка Услуги(Удаление): ${error}`)
+			console.error(`Ошибка Отзывы(Удаление): ${error}`)
 		}
 	}
 }
 
-export const servicesStores = new ServicesStores()
+export const reviewsStores = new ReviewsStores()

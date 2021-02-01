@@ -1625,6 +1625,11 @@ img.adminCross {
   transition: 0.3s;
   cursor: pointer;
 }
+.ascb__inputs__addNew-prev video {
+  width: 100%;
+  transition: 0.3s;
+  cursor: pointer;
+}
 .ascb__inputs__addNew-prev img {
   width: 100%;
   object-fit: contain;

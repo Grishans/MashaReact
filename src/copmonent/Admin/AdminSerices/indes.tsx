@@ -139,7 +139,11 @@ const AdminServices: React.FC = observer(
 												id='adminInput'
 												type='text'
 												name='title'
-												value={serCurrent ? serCurrent.title : item.title}
+												value={
+													serCurrent && serCurrent.title !== ""
+														? serCurrent.title
+														: item.title
+												}
 												onChange={changeInput}
 												className='adminInput'
 												placeholder='Введите название'
@@ -152,7 +156,11 @@ const AdminServices: React.FC = observer(
 												id='adminInput'
 												type='text'
 												name='workTime'
-												value={serCurrent ? serCurrent.workTime : item.workTime}
+												value={
+													serCurrent && serCurrent.workTime !== ""
+														? serCurrent.workTime
+														: item.workTime
+												}
 												onChange={changeInput}
 												className='adminInput'
 												placeholder='Введите время затрат'
