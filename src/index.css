@@ -1326,6 +1326,9 @@ footer {
 
 /*  A D M I N   */
 
+.admin__wrap {
+  min-height: 100vh;
+}
 .adminWrap {
   display: flex;
   flex-direction: column;
@@ -1358,8 +1361,10 @@ footer {
   top: 130px;
   left: 0;
   width: 17%;
-  height: 100%;
+  min-height: calc(100% - 130px);
+  max-height: calc(100% - 130px);
   background: #f9f5f1;
+  overflow-y: scroll;
 }
 .adminLeftNav ul {
   margin: 0;
@@ -1530,7 +1535,7 @@ img.adminCross {
   padding: 16px 30px;
   background: #f5f5f5;
   border: 1px solid #e3cdba;
-  max-height: 100%;
+  max-height: calc(100vh - 180px);
   overflow-y: scroll;
 }
 .admin__services__btn {
@@ -1815,8 +1820,12 @@ p.adminAbout__remainder span {
   display: flex;
   flex-wrap: wrap;
   width: 35%;
-  height: 120px;
+  min-height: 120px;
+  max-height: 120px;
   align-items: baseline;
+}
+.admin__reviews__BTN .ant-select {
+  margin-bottom: 20px;
 }
 .amdin__reviews__content__wrap {
   display: flex;
@@ -1825,6 +1834,7 @@ p.adminAbout__remainder span {
 .arcw__video__wrap {
   display: flex;
   margin-top: 30px;
+  width: 100%;
 }
 .arcw__box {
   position: relative;
