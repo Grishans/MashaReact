@@ -281,14 +281,34 @@ const Home: React.FC = (): React.ReactElement => {
       window.scrollTo(0, 0);
     });
   }, []);
-
+  const setIDForHref = React.useCallback(() => {
+    let boxHref: any;
+    let boxTitle: any;
+    let FormSelect: any;
+    boxHref = document.querySelectorAll(
+      ".services__box > .services__box_htmlForm"
+    );
+    boxTitle = document.querySelectorAll(
+      ".services__box > .services__box__article"
+    );
+    FormSelect = document.querySelector("#FormSelect");
+    for (let i = 0; i < boxHref.length; i++) {
+      // box[i].setAttribute("id", i + 1);
+      boxHref[i].addEventListener("click", (e: any) => {
+        FormSelect.value = boxTitle[i].innerHTML;
+        console.log("select: ", FormSelect.value);
+        console.log("box: ", boxTitle[i].innerHTML);
+      });
+    }
+  }, []);
   React.useEffect(() => {
     customSlider();
     review();
     whiteOpacity();
     BtnUp();
     navAnimation();
-  }, [customSlider, review, whiteOpacity, BtnUp, navAnimation]);
+    setIDForHref();
+  }, [customSlider, review, whiteOpacity, BtnUp, navAnimation, setIDForHref]);
   return (
     <>
       <header>
@@ -394,7 +414,7 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_1.png" alt="" />
                   <a className="services__box_htmlForm" href="#form">
-                    <p>Записаться</p>{" "}
+                    <p>Записаться</p>
                   </a>
                 </div>
               </div>
@@ -966,13 +986,15 @@ const Home: React.FC = (): React.ReactElement => {
                 required
               />
               <input type="text" placeholder="Дата" required />
-              <select defaultValue={"DEFAULT"}>
+              <select defaultValue={"DEFAULT"} id="FormSelect">
                 <option value="DEFAULT" disabled>
                   Тип макияжа
                 </option>
                 <option value="Свадебный макияж">Свадебный макияж</option>
-                <option value="Ночной макияж">Ночной макияж</option>
-                <option value="Дневной макияж">Дневной макияж</option>
+                <option value="Вечерний макияж">Вечерний макияж</option>
+                <option value="Макияж на фотосессию">
+                  Макияж на фотосессию
+                </option>
               </select>
               <input type="submit" value="Записаться" />
             </form>

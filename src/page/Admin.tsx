@@ -9,6 +9,7 @@ import AdminPortfolio from "../copmonent/Admin/AdminPortfolio";
 import AdminReviews from "../copmonent/Admin/AdminReviews";
 import AdminServices from "../copmonent/Admin/AdminSerices/indes";
 import AdminToogle from "../copmonent/Admin/AdminToogle";
+import AdmiAuthorization from "../copmonent/Admin/Authorization";
 import SocNet from "../copmonent/Admin/SocNet";
 
 const Admin: React.FC = (): React.ReactElement => {
@@ -141,6 +142,7 @@ const Admin: React.FC = (): React.ReactElement => {
           {menu === "feedback" && <AdminFeedback />}
         </div>
       </div>
+      {menu === "authorization" && <AdmiAuthorization />}
     </>
   );
 };

@@ -1962,3 +1962,58 @@ p.adminAbout__remainder span {
   border-left: 1px solid #dcbfa5;
   cursor: pointer;
 }
+.admin__aut__wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.admin__aut__wrap .header__main__text {
+  align-items: center;
+}
+.admin__aut__wrap .header__main {
+  width: 80%;
+  height: auto;
+}
+.admin__aut__wrap .header__bg {
+  z-index: 1;
+}
+.admin__aut__wrap .header__main {
+  z-index: 2;
+}
+.admin__aut__wrap .header__main .admin__header__input {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.admin__aut__wrap .header__main .admin__header__input input {
+  margin-bottom: 15px;
+  height: 35px;
+  background: #fff;
+  border: 1px solid #aa4d54;
+  box-sizing: border-box;
+}
+.admin__aut__wrap .header__main .admin__header__input label {
+  color: #aa4d54;
+  font-weight: 500;
+}
+.admin__aut__wrap .header__main .admin__header__input button.adminAutBtn {
+  margin-top: 10px;
+  height: 40px;
+  background: #aa4d54;
+  border: 1px solid #aa4d54;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.admin__aut__wrap .header__main .admin__header__input button.adminAutBtn:hover {
+  background: #fff;
+  border: 1px solid #aa4d54;
+  color: #aa4d54;
+}
