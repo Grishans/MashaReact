@@ -70,6 +70,9 @@ const Home: React.FC = (): React.ReactElement => {
     setHeaderNav((prev) => !prev);
   }, []);
 
+  const [services, setServices] = React.useState<Boolean>(true);
+  const [courses, setCourses] = React.useState<Boolean>(false);
+
   const navAnimation = React.useCallback(() => {
     if (!headerNav) {
       Nav.current!.style.transform = "translate(40px, -50px)";
@@ -282,13 +285,89 @@ const Home: React.FC = (): React.ReactElement => {
     });
   }, []);
 
+  const setCurrentSelectSevices = React.useCallback(() => {
+    let boxHref: any;
+    let boxTitle: any;
+    let FormSelect: any;
+    boxHref = document.querySelectorAll(
+      ".services__box > .services__box_htmlForm"
+    );
+    boxTitle = document.querySelectorAll(
+      ".services__box > .services__box__article"
+    );
+    FormSelect = document.querySelector("#FormSelect");
+    for (let i = 0; i < boxHref.length; i++) {
+      boxHref[i].addEventListener("click", () => {
+        FormSelect.value = boxTitle[i].innerHTML;
+      });
+    }
+  }, []);
+
+  const setCurrentSelectCourses = React.useCallback(() => {
+    let coursesBtn: any;
+    let coursesTitle: any;
+    let FormSelect: any;
+    coursesBtn = document.querySelectorAll(".courses_btn");
+    coursesTitle = document.querySelectorAll(".courses__box > .courses__title");
+    FormSelect = document.querySelector("#FormSelect");
+    for (let i = 0; i < coursesTitle.length; i++) {
+      coursesBtn[i].addEventListener("click", () => {
+        FormSelect.value = coursesTitle[i].innerHTML;
+        console.log("select :", FormSelect.value);
+        console.log("courses :", coursesTitle[i].innerHTML);
+      });
+    }
+  }, []);
+
+  const showServicesForm: any = React.useCallback(() => {
+    setServices(true);
+    setCourses(false);
+    setCurrentSelectSevices();
+  }, [setCurrentSelectSevices]);
+  const showCoursesForm: any = React.useCallback(() => {
+    setServices(false);
+    setCourses(true);
+    setCurrentSelectCourses();
+  }, [setCurrentSelectCourses]);
+
+  const setBTN = React.useCallback(() => {
+    let boxHref: any;
+    let coursesBtn: any;
+    boxHref = document.querySelectorAll(
+      ".services__box > .services__box_htmlForm"
+    );
+    coursesBtn = document.querySelectorAll(".courses_btn");
+    for (let i = 0; i < boxHref.length; i++) {
+      boxHref[i].addEventListener("click", (e: any) => {
+        showServicesForm();
+      });
+    }
+    for (let i = 0; i < coursesBtn.length; i++) {
+      coursesBtn[i].addEventListener("click", () => {
+        showCoursesForm();
+      });
+    }
+  }, [showCoursesForm, showServicesForm]);
+
   React.useEffect(() => {
     customSlider();
     review();
     whiteOpacity();
     BtnUp();
     navAnimation();
-  }, [customSlider, review, whiteOpacity, BtnUp, navAnimation]);
+    setCurrentSelectSevices();
+    setCurrentSelectCourses();
+    setBTN();
+  }, [
+    customSlider,
+    review,
+    whiteOpacity,
+    BtnUp,
+    navAnimation,
+    setCurrentSelectSevices,
+    setCurrentSelectCourses,
+    setBTN,
+  ]);
   return (
     <>
       <header>
@@ -394,7 +473,7 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_1.png" alt="" />
                   <a className="services__box_htmlForm" href="#form">
-                    <p>Записаться</p>{" "}
+                    <p>Записаться</p>
                   </a>
                 </div>
               </div>
@@ -689,7 +768,7 @@ const Home: React.FC = (): React.ReactElement => {
           <p className="title">Курсы</p>
           <div className="courses__content">
             <div className="courses__box">
-              <span>“Сам себе визажист”</span>
+              <span className="courses__title">“Сам себе визажист”</span>
               <ul>
                 <li>4 занятия (по 60 минут)</li>
                 <li>определение типа кожи и цветоитпа</li>
@@ -701,7 +780,9 @@ const Home: React.FC = (): React.ReactElement => {
               </label>
             </div>
             <div className="courses__box">
-              <span>Базовый курс “Начинающий визажист”</span>
+              <span className="courses__title">
+                Базовый курс “Начинающий визажист”
+              </span>
               <ul>
                 <li>10-15 занятия (по 60 минут)</li>
                 <li>типы кожи и особенности работы</li>
@@ -966,14 +1047,29 @@ const Home: React.FC = (): React.ReactElement => {
                 required
               />
               <input type="text" placeholder="Дата" required />
-              <select defaultValue={"DEFAULT"}>
-                <option value="DEFAULT" disabled>
-                  Тип макияжа
-                </option>
-                <option value="Свадебный макияж">Свадебный макияж</option>
-                <option value="Ночной макияж">Ночной макияж</option>
-                <option value="Дневной макияж">Дневной макияж</option>
-              </select>
+              {services && (
+                <select defaultValue={"DEFAULT"} id="FormSelect">
+                  <option value="DEFAULT" disabled>
+                    Тип макияжа
+                  </option>
+                  <option value="Свадебный макияж">Свадебный макияж</option>
+                  <option value="Вечерний макияж">Вечерний макияж</option>
+                  <option value="Макияж на фотосессию">
+                    Макияж на фотосессию
+                  </option>
+                </select>
+              )}
+              {courses && (
+                <select defaultValue={"DEFAULT"} id="FormSelect">
+                  <option value="DEFAULT" disabled>
+                    Курс
+                  </option>
+                  <option value="Сам себе визажист">Сам себе визажист</option>
+                  <option value="Базовый курс “Начинающий визажист”">
+                    Базовый курс “Начинающий визажист”
+                  </option>
+                </select>
+              )}
               <input type="submit" value="Записаться" />
             </form>
           </div>
