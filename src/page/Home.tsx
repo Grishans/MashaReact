@@ -285,6 +285,34 @@ const Home: React.FC = (): React.ReactElement => {
     });
   }, []);
 
+  const distanceToForm = React.useCallback(() => {
+    let distance =
+      document.getElementById("header")?.offsetHeight! +
+      document.getElementById("services")?.offsetHeight! +
+      document.getElementById("portfolio")?.offsetHeight! +
+      document.getElementById("courses")?.offsetHeight! +
+      document.getElementById("about")?.offsetHeight! +
+      document.getElementById("reviews")?.offsetHeight! +
+      document.getElementById("instagram")?.offsetHeight!;
+    return distance;
+  }, []);
+
+  const scrollToForm = React.useCallback(() => {
+    window.scrollTo({
+      top: distanceToForm(),
+      behavior: "smooth",
+    });
+  }, [distanceToForm]);
+
+  const showServicesForm: any = React.useCallback(() => {
+    setServices(true);
+    setCourses(false);
+  }, []);
+  const showCoursesForm: any = React.useCallback(() => {
+    setServices(false);
+    setCourses(true);
+  }, []);
+
   const setCurrentSelectSevices = React.useCallback(() => {
     let boxHref: any;
     let boxTitle: any;
@@ -298,10 +326,16 @@ const Home: React.FC = (): React.ReactElement => {
     FormSelect = document.querySelector("#FormSelect");
     for (let i = 0; i < boxHref.length; i++) {
       boxHref[i].addEventListener("click", () => {
-        FormSelect.value = boxTitle[i].innerHTML;
+        scrollToForm();
+        if (services === false) {
+          showServicesForm();
+        } else {
+          FormSelect.value = boxTitle[i].innerHTML;
+        }
+        boxHref[i].click();
       });
     }
-  }, []);
+  }, [scrollToForm, showServicesForm, services]);
 
   const setCurrentSelectCourses = React.useCallback(() => {
     let coursesBtn: any;
@@ -310,44 +344,18 @@ const Home: React.FC = (): React.ReactElement => {
     coursesBtn = document.querySelectorAll(".courses_btn");
     coursesTitle = document.querySelectorAll(".courses__box > .courses__title");
     FormSelect = document.querySelector("#FormSelect");
-    for (let i = 0; i < coursesTitle.length; i++) {
-      coursesBtn[i].addEventListener("click", () => {
-        FormSelect.value = coursesTitle[i].innerHTML;
-        console.log("select :", FormSelect.value);
-        console.log("courses :", coursesTitle[i].innerHTML);
-      });
-    }
-  }, []);
-
-  const showServicesForm: any = React.useCallback(() => {
-    setServices(true);
-    setCourses(false);
-    setCurrentSelectSevices();
-  }, [setCurrentSelectSevices]);
-  const showCoursesForm: any = React.useCallback(() => {
-    setServices(false);
-    setCourses(true);
-    setCurrentSelectCourses();
-  }, [setCurrentSelectCourses]);
-
-  const setBTN = React.useCallback(() => {
-    let boxHref: any;
-    let coursesBtn: any;
-    boxHref = document.querySelectorAll(
-      ".services__box > .services__box_htmlForm"
-    );
-    coursesBtn = document.querySelectorAll(".courses_btn");
-    for (let i = 0; i < boxHref.length; i++) {
-      boxHref[i].addEventListener("click", (e: any) => {
-        showServicesForm();
-      });
-    }
     for (let i = 0; i < coursesBtn.length; i++) {
       coursesBtn[i].addEventListener("click", () => {
-        showCoursesForm();
+        scrollToForm();
+        if (courses === false) {
+          showCoursesForm();
+        } else {
+          FormSelect.value = coursesTitle[i].innerHTML;
+        }
+        coursesBtn[i].click();
       });
     }
-  }, [showCoursesForm, showServicesForm]);
+  }, [scrollToForm, showCoursesForm, courses]);
 
   React.useEffect(() => {
     customSlider();
@@ -357,7 +365,7 @@ const Home: React.FC = (): React.ReactElement => {
     navAnimation();
     setCurrentSelectSevices();
     setCurrentSelectCourses();
-    setBTN();
+    distanceToForm();
   }, [
     customSlider,
     review,
@@ -366,12 +374,12 @@ const Home: React.FC = (): React.ReactElement => {
     navAnimation,
     setCurrentSelectSevices,
     setCurrentSelectCourses,
-    setBTN,
+    distanceToForm,
   ]);
   return (
     <>
       <header>
-        <div className="header__wrap">
+        <div className="header__wrap" id="header">
           <div className="header__nav">
             <img src="/img/burger.svg" alt="" onClick={navShow} />
 
@@ -427,7 +435,7 @@ const Home: React.FC = (): React.ReactElement => {
             <div className="header__main__text">
               <img src="/img/logo_white.svg" alt="" />
               <p>Услуги визажиста и стилиста по прическам на выезд</p>
-              <a href="#form">Записаться</a>
+              <span onClick={scrollToForm}>Записаться</span>
             </div>
             <img src="/img/main-girl.png" alt="" className="girl" />
             <div className="header__main__sn">
@@ -462,7 +470,7 @@ const Home: React.FC = (): React.ReactElement => {
         <img className="header__bg__right_top" src="img/rightUp.png" alt="" />
       </header>
 
-      <section className="services">
+      <section className="services" id="services">
         <p className="title">Услуги</p>
         <div className="services__wrap">
           <div className="slider multiple-items">
@@ -472,9 +480,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Вечерний макияж</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_1.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
+                  <div className="services__box_htmlForm">
                     <p>Записаться</p>
-                  </a>
+                  </div>
                 </div>
               </div>
               <div>
@@ -482,9 +490,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Свадебный макияж</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_2.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
-                    Записаться
-                  </a>
+                  <div className="services__box_htmlForm">
+                    <p>Записаться</p>
+                  </div>
                 </div>
               </div>
               <div>
@@ -492,9 +500,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Макияж на фотосессию</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_3.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
-                    Записаться
-                  </a>
+                  <div className="services__box_htmlForm">
+                    <p>Записаться</p>
+                  </div>
                 </div>
               </div>
               <div>
@@ -502,7 +510,7 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Макияж на фотосессию</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_3.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
+                  <a className="services__box_htmlForm" href="/">
                     <p>Записаться</p>{" "}
                   </a>
                 </div>
@@ -512,9 +520,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Макияж на фотосессию</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_3.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
-                    Записаться
-                  </a>
+                  <div className="services__box_htmlForm">
+                    <p>Записаться</p>
+                  </div>
                 </div>
               </div>
               <div>
@@ -522,9 +530,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Вечерний макияж</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_1.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
-                    Записаться
-                  </a>
+                  <div className="services__box_htmlForm">
+                    <p>Записаться</p>
+                  </div>
                 </div>
               </div>
               <div>
@@ -532,9 +540,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <p className="services__box__article">Вечерний макияж</p>
                   <p className="services__box__time">60 минут</p>
                   <img src="/img/services_1.png" alt="" />
-                  <a className="services__box_htmlForm" href="#form">
-                    Записаться
-                  </a>
+                  <div className="services__box_htmlForm">
+                    <p>Записаться</p>
+                  </div>
                 </div>
               </div>
             </SlickSlider>
@@ -548,7 +556,7 @@ const Home: React.FC = (): React.ReactElement => {
         </div>
       </section>
 
-      <section className="portfolio">
+      <section className="portfolio" id="portfolio">
         <div className="portolio__wrap">
           <p className="title">Портфолио</p>
           <div className="portfolio__slideButton">
@@ -763,7 +771,7 @@ const Home: React.FC = (): React.ReactElement => {
         <div className="title__top_right"></div>
       </section>
 
-      <section className="courses">
+      <section className="courses" id="courses">
         <div className="courses__wrap">
           <p className="title">Курсы</p>
           <div className="courses__content">
@@ -800,7 +808,7 @@ const Home: React.FC = (): React.ReactElement => {
         <div className="title__top_right"></div>
       </section>
 
-      <section className="about">
+      <section className="about" id="about">
         <div className="about__wrap">
           <p className="title about_title_desc">Обо мне</p>
           <div className="about__contentWrap">
@@ -826,7 +834,7 @@ const Home: React.FC = (): React.ReactElement => {
                 </ul>
               </div>
               <div className="about__box__btn">
-                <label>Записаться</label>
+                <label onClick={scrollToForm}>Записаться</label>
               </div>
               <img className="about_paint" src="/img/about_paint.png" alt="" />
               <div className="about_photo">
@@ -851,7 +859,7 @@ const Home: React.FC = (): React.ReactElement => {
         <img className="about_bg" src="/img/about_bg.png" alt="" />
       </section>
 
-      <section className="services reviews">
+      <section className="services reviews" id="reviews">
         <p className="title">Отзывы</p>
         <div className="reviews__toogle">
           <div ref={reviews_video} className="rev__toogle_wrap">
@@ -961,7 +969,7 @@ const Home: React.FC = (): React.ReactElement => {
         <div className="title__top_right"></div>
       </section>
 
-      <section className="services instagram">
+      <section className="services instagram" id="instagram">
         <div className="services__wrap">
           <div className="instagram__title">
             <p>Подписывайтесь на мой Instagram!</p>
@@ -1064,7 +1072,9 @@ const Home: React.FC = (): React.ReactElement => {
                   <option value="DEFAULT" disabled>
                     Курс
                   </option>
-                  <option value="Сам себе визажист">Сам себе визажист</option>
+                  <option value="“Сам себе визажист”">
+                    “Сам себе визажист”
+                  </option>
                   <option value="Базовый курс “Начинающий визажист”">
                     Базовый курс “Начинающий визажист”
                   </option>
