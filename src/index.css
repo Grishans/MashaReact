@@ -21,18 +21,21 @@ body {
 }
 #root {
   position: relative;
+  overflow-x: hidden;
 }
-
 #scrollUp {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 20px;
+  width: 45px;
+  height: 45px;
   font-weight: bold;
   cursor: pointer;
-  opacity: 0;
-  transition: all 0.5s ease-in;
+  opacity: 1;
+  transform: translateX(-80px);
+  transition: all 0.3s;
+  border-radius: 50%;
 }
-
 /* Header */
 header {
   position: relative;
@@ -122,7 +125,7 @@ header {
   color: #aa4d54;
   font-size: 20px;
 }
-.header__main__text a {
+.header__main__text span {
   padding: 15px 20px;
   text-align: center;
   color: #aa4d54;
@@ -134,7 +137,7 @@ header {
   width: 25%;
   text-decoration: none;
 }
-.header__main__text a:hover {
+.header__main__text span:hover {
   box-shadow: 0px 0px 4px #a74650;
 }
 .header__main__sn {
@@ -242,7 +245,7 @@ p.services__box__time {
   font-size: 18px;
   font-family: "Prata", serif;
 }
-.services__box a.services__box_htmlForm {
+.services__box .services__box_htmlForm {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,8 +262,14 @@ p.services__box__time {
   font-size: 28px;
   text-decoration: none;
   opacity: 0;
+  cursor: pointer;
 }
-.services__box:hover a {
+.services__box .services__box_htmlForm p {
+  background: #fff;
+  padding: 5px 40px;
+  transform: translateY(100%);
+}
+.services__box:hover .services__box_htmlForm {
   background-color: rgba(255, 255, 255, 0.5);
   color: #000;
   opacity: 1;
@@ -1006,6 +1015,7 @@ footer {
     transition: 0.3s;
     z-index: 99;
     list-style: none;
+    padding: 0;
   }
   .header__nav ul.main_navMobil a {
     color: #000;
@@ -1036,6 +1046,9 @@ footer {
   }
   .header__main__text {
     width: 74%;
+  }
+  .header__main__text span {
+    width: 65%;
   }
   .header__main__text p {
     margin: 20px 0 30px 0;
@@ -1124,16 +1137,16 @@ footer {
   .portfolio__toogle {
     display: flex;
     align-items: center;
-    overflow: hidden;
-    overflow-x: scroll;
-    white-space: nowrap;
     height: 65px;
+    overflow-x: auto;
+    white-space: nowrap;
     background: #fff;
     margin-bottom: 30px;
+    justify-content: unset;
   }
   .portfolio__toogle label {
     margin: 0;
-    margin-right: 4%;
+    padding: 0 10px;
   }
 
   /* Courses */
@@ -1203,6 +1216,9 @@ footer {
     width: auto;
     height: 105%;
     margin: 0 auto;
+  }
+  .about__box__btn label {
+    width: 70%;
   }
   .about__box__title p {
     margin: 0 0 0 10%;
