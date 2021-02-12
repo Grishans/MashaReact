@@ -72,14 +72,15 @@ header {
   transition: 0.3s;
   padding: 0;
 }
-.header__nav ul.main_nav a {
+.header__nav ul.main_nav li {
   text-decoration: none;
   color: #000;
   margin-left: 20px;
   position: relative;
   line-height: 1;
+  cursor: pointer;
 }
-.header__nav ul.main_nav a::after {
+.header__nav ul.main_nav li::after {
   display: block;
   position: absolute;
   left: 0;
@@ -89,8 +90,8 @@ header {
   transition: width 0.3s ease-out;
   background-color: #000;
 }
-.header__nav ul.main_nav a:hover::after,
-.header__nav ul.main_nav a:focus::after {
+.header__nav ul.main_nav li:hover::after,
+.header__nav ul.main_nav li:focus::after {
   width: 100%;
 }
 .header__nav ul.main_nav li {
@@ -913,13 +914,14 @@ footer {
   list-style-type: none;
   justify-content: space-between;
 }
-.footer__nav ul a {
+.footer__nav ul li {
   position: relative;
   text-decoration: none;
   line-height: 1;
   transition: 0.3s;
+  cursor: pointer;
 }
-.footer__nav ul a::after {
+.footer__nav ul li::after {
   display: block;
   position: absolute;
   left: 0;
@@ -929,11 +931,11 @@ footer {
   transition: width 0.3s ease-out;
   background-color: #fff;
 }
-.footer__nav ul a:hover::after,
-.footer__nav ul a:focus::after {
+.footer__nav ul li:hover::after,
+.footer__nav ul li:focus::after {
   width: 100%;
 }
-.footer__nav ul a li {
+.footer__nav ul li {
   margin: 0;
   padding: 0;
   color: #fff;
