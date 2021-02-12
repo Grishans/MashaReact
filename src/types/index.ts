@@ -53,3 +53,11 @@ export interface IInst {
 	link?: string
 	photo?: string
 }
+
+export interface IForm {
+	_id?: string
+	name?: string
+	phone?: string
+	data?: string
+	type?: string
+}
