@@ -1,3 +1,17 @@
+export interface IUser {
+	_id?: string
+	fullname?: string
+	login?: string
+	email?: string
+	confirm?: boolean
+	tenant?: boolean
+	access?: number
+	phone?: string
+	confirmed_hash?: string
+	password?: string
+	avatar?: string
+}
+
 export interface ISettings {
 	_id?: string
 	inst?: string
@@ -60,4 +74,5 @@ export interface IForm {
 	phone?: string
 	data?: string
 	type?: string
+	completed?: boolean
 }

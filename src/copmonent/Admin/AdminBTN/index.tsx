@@ -38,7 +38,12 @@ const AdminBTN: React.FC<TAdminBTNProps> = ({
 				</button>
 			)}
 			{Cross && (
-				<img src='../img/admin_cross.svg' alt='' className='adminCross' />
+				<img
+					src='../img/admin_cross.svg'
+					alt=''
+					className='adminCross'
+					onClick={onClick}
+				/>
 			)}
 			{DropDn && (
 				<Select defaultValue='Свадебный макияж' onChange={handleChange}>

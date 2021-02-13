@@ -1,23 +1,33 @@
 import { action, makeObservable, observable } from "mobx"
+import { aboutApi } from "../api"
 import { IAbout } from "../types"
 
 class AboutsStores {
-	items: IAbout = {
-		_id: String(Math.round(Math.random() * 10)),
-		quote: "Чего то там",
-		desc: "Описание",
-	}
+	items: IAbout = {}
 
 	constructor() {
-		makeObservable(this, { items: observable, edit: action }, { deep: true })
+		makeObservable(
+			this,
+			{ items: observable, edit: action, fetchData: action },
+			{ deep: true },
+		)
 	}
 
 	edit = async (obj: IAbout): Promise<void> => {
 		try {
-			this.items = obj
-			console.log("obj", this.items)
+			const { data } = await aboutApi.update(obj)
+			this.items = data.data
 		} catch (error) {
 			console.error(`Ошибка О Себе(Редактирование): ${error}`)
+		}
+	}
+
+	fetchData = async (): Promise<void> => {
+		try {
+			const { data } = await aboutApi.show()
+			this.items = data.data[0]
+		} catch (error) {
+			console.error(`Ошибка Главная(Загрузка данных): ${error}`)
 		}
 	}
 }

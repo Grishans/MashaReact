@@ -1,24 +1,20 @@
 import { action, makeObservable, observable } from "mobx"
+import { courseApi } from "../api"
 import { ICourse } from "../types"
 
 class CoursecStores {
-	items: ICourse[] = [
-		{
-			_id: String(Date.now() + Math.round(Math.random() * 10)),
-			title: "Первая услуга",
-			desc: "Описание первой услуги",
-		},
-		{
-			_id: String(Date.now() + Math.round(Math.random() * 100)),
-			title: "Вторая услуга",
-			desc: "Описание второй услуги",
-		},
-	]
+	items: ICourse[] = []
 
 	constructor() {
 		makeObservable(
 			this,
-			{ items: observable, create: action, edit: action, delete: action },
+			{
+				items: observable,
+				create: action,
+				edit: action,
+				delete: action,
+				fetchData: action,
+			},
 			{ deep: true },
 		)
 	}
@@ -32,8 +28,9 @@ class CoursecStores {
 	}
 	edit = async (obj: ICourse): Promise<void> => {
 		try {
+			const { data } = await courseApi.update(obj)
 			this.items = this.items.map((item) =>
-				item._id === obj._id ? (item = obj) : item,
+				item._id === obj._id ? (item = data.data) : item,
 			)
 		} catch (error) {
 			console.error(`Ошибка Курсы(Редактирование): ${error}`)
@@ -44,6 +41,14 @@ class CoursecStores {
 			this.items.filter((item) => item._id !== id)
 		} catch (error) {
 			console.error(`Ошибка Курсы(Удаление): ${error}`)
+		}
+	}
+	fetchData = async (): Promise<void> => {
+		try {
+			const { data } = await courseApi.show()
+			this.items = data.data
+		} catch (error) {
+			console.error(`Ошибка Главная(Загрузка данных): ${error}`)
 		}
 	}
 }

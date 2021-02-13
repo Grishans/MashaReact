@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { servicesStores } from "../../../stores/servicesStores"
 import { IService } from "../../../types"
+import { attach } from "../../../utils/attachFiles"
 import AdminBTN from "../AdminBTN"
 
 const AdminServices: React.FC = observer(
@@ -10,7 +11,7 @@ const AdminServices: React.FC = observer(
 		const [addBox, setAddBox] = React.useState<boolean>(false)
 		const service: IService[] = servicesStores.items
 		const [image, setImage] = React.useState<Blob | any>()
-		const [serCurrent, setSerCurrent] = React.useState<IService>({})
+		const [serCurrent, setSerCurrent] = React.useState<IService | undefined>()
 
 		const changeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
 			setSerCurrent((pre) => ({ ...pre, [e.target.name]: e.target.value }))
@@ -20,23 +21,22 @@ const AdminServices: React.FC = observer(
 			const file = e.target.files
 			setImage(file![0])
 		}
-
 		const saveService = async (): Promise<void> => {
 			try {
-				if (serCurrent._id === undefined) {
+				const pic = await attach(image)
+				if (!serCurrent!._id || serCurrent!._id === undefined) {
 					const obj: IService = {
-						_id: String(Date.now()),
 						...serCurrent,
+						photo: pic,
 					}
 					await servicesStores.create(obj)
 					alert("Услуга сохранена!")
 				} else {
-					await servicesStores.edit(serCurrent)
+					await servicesStores.edit(serCurrent!)
 					alert("Услуга обновленна!")
 				}
-				console.log("service", service)
 				setAddBox(false)
-				setSerCurrent({})
+				setSerCurrent(undefined)
 				setImage(undefined)
 			} catch (error) {
 				console.error(`Ошибка Сервисы(Сохранение): ${error}`)
@@ -63,11 +63,18 @@ const AdminServices: React.FC = observer(
 							<div className='admin__content__box admin__service__comtent__box'>
 								<div className='ascb__title'>
 									<label>
-										{serCurrent.title && serCurrent.title!.length > 0
-											? serCurrent.title
+										{serCurrent &&
+										serCurrent!.title &&
+										serCurrent!.title!.length > 0
+											? serCurrent!.title
 											: "Новая услуга"}
 									</label>
-									<AdminBTN Cross />
+									<AdminBTN
+										Cross
+										onClick={(): void => {
+											setAddBox(false)
+										}}
+									/>
 								</div>
 								<hr />
 								<div className='ascb__inputs'>
@@ -78,7 +85,7 @@ const AdminServices: React.FC = observer(
 										<input
 											id='adminInput'
 											name='title'
-											value={serCurrent.title}
+											value={serCurrent && serCurrent!.title}
 											onChange={changeInput}
 											type='text'
 											className='adminInput'
@@ -91,7 +98,7 @@ const AdminServices: React.FC = observer(
 											id='adminInput'
 											type='text'
 											name='workTime'
-											value={serCurrent.workTime}
+											value={serCurrent && serCurrent!.workTime}
 											onChange={changeInput}
 											className='adminInput'
 											placeholder='Введите время затрат'
@@ -127,7 +134,14 @@ const AdminServices: React.FC = observer(
 										<button onClick={() => setSerCurrent(item)}>
 											Редактировать
 										</button>
-										<AdminBTN Cross />
+										<AdminBTN
+											Cross
+											onClick={(): void => {
+												if (window.confirm("Вы точно хотите удалить услугу?")) {
+													servicesStores.delete(item._id!)
+												}
+											}}
+										/>
 									</div>
 									<hr />
 									<div className='ascb__inputs'>
@@ -147,7 +161,7 @@ const AdminServices: React.FC = observer(
 												onChange={changeInput}
 												className='adminInput'
 												placeholder='Введите название'
-												disabled={serCurrent._id !== item._id}
+												disabled={serCurrent && serCurrent!._id !== item._id}
 											/>
 											<label htmlFor='adminInput' className='adminLabel'>
 												Затраты времени
@@ -164,11 +178,18 @@ const AdminServices: React.FC = observer(
 												onChange={changeInput}
 												className='adminInput'
 												placeholder='Введите время затрат'
-												disabled={serCurrent._id !== item._id}
+												disabled={serCurrent && serCurrent!._id !== item._id}
 											/>
 										</div>
 										<div className='ascb__inputs__img'>
-											<img src='/img/services_2.png' alt='' />
+											<img
+												src={
+													image
+														? URL.createObjectURL(image)
+														: `${process.env.REACT_APP_LINK}${item.photo}`
+												}
+												alt=''
+											/>
 											<div className='ascb__inputs__addImg'>
 												<label>Добавить Фотографию</label>
 											</div>

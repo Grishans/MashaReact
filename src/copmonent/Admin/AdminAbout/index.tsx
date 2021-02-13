@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { aboutsStores } from "../../../stores/aboutsStores"
 import { IAbout } from "../../../types"
+import { attach } from "../../../utils/attachFiles"
 import AdminBTN from "../AdminBTN"
 
 const AdminAbout: React.FC = observer(
@@ -9,6 +10,8 @@ const AdminAbout: React.FC = observer(
 		const about: IAbout = aboutsStores.items
 		const [remainder, setReminder] = React.useState<number>(0)
 		const [aboutCurr, setAboutCurr] = React.useState<IAbout>({})
+		const [photo1, setPhoto1] = React.useState<any>(null)
+		const [photo2, setPhoto2] = React.useState<any>(null)
 
 		const rmeinderValue = () => {
 			const Value =
@@ -24,14 +27,31 @@ const AdminAbout: React.FC = observer(
 			setAboutCurr((pre) => ({ ...pre, [e.target.name]: e.target.value }))
 		}
 
+		const addImage1 = (e: React.ChangeEvent<HTMLInputElement>): void => {
+			const file = e.target.files
+			setPhoto1(file![0])
+		}
+		const addImage2 = (e: React.ChangeEvent<HTMLInputElement>): void => {
+			const file = e.target.files
+			setPhoto2(file![0])
+		}
+
 		const saveForm = async (): Promise<void> => {
 			try {
+				let pic1, pic2
+				photo1 ? (pic1 = await attach(photo1)) : (pic1 = aboutCurr.photo1)
+				photo2 ? (pic2 = await attach(photo2)) : (pic2 = aboutCurr.photo2)
 				const obj: IAbout = {
+					_id: aboutCurr._id,
 					quote: aboutCurr.quote,
 					desc: aboutCurr.desc,
+					photo1: pic1,
+					photo2: pic2,
 				}
 				aboutsStores.edit(obj)
 				alert("Изменения О Себе сохранены!")
+				setPhoto1(null)
+				setPhoto2(null)
 				//setAboutCurr(undefined)
 			} catch (error) {
 				console.error(`Ошибка О Нас: ${error}`)
@@ -41,7 +61,6 @@ const AdminAbout: React.FC = observer(
 		React.useEffect(() => {
 			rmeinderValue()
 		}, [])
-
 		React.useEffect(() => {
 			about && setAboutCurr(about)
 		}, [about])
@@ -90,18 +109,36 @@ const AdminAbout: React.FC = observer(
 					<div className='admin__about__photo'>
 						<div className='aap__box'>
 							<label className='adminLabel'>Декоративное фото</label>
-							<img src='/img/about_paint.png' alt='' />
+							<img
+								src={
+									photo1
+										? URL.createObjectURL(photo1)
+										: aboutCurr.photo1 && aboutCurr.photo1.length <= 0
+										? "/img/about_paint.png"
+										: `${process.env.REACT_APP_LINK}${aboutCurr.photo1}`
+								}
+								alt=''
+							/>
 							<div className='Admin__change'>
 								<label htmlFor='decorationPhoto'>Изменить фотографию</label>
-								<input id='decorationPhoto' type='file' />
+								<input id='decorationPhoto' type='file' onChange={addImage1} />
 							</div>
 						</div>
 						<div className='aap__box'>
 							<label className='adminLabel'>Декоративное фото</label>
-							<img src='/img/about_photo.png' alt='' />
+							<img
+								src={
+									photo2
+										? URL.createObjectURL(photo2)
+										: aboutCurr.photo1 && aboutCurr.photo1.length <= 0
+										? "/img/about_photo.png"
+										: `${process.env.REACT_APP_LINK}${aboutCurr.photo2}`
+								}
+								alt=''
+							/>
 							<div className='Admin__change'>
 								<label htmlFor='personalPhoto'>Изменить фотографию</label>
-								<input id='personalPhoto' type='file' />
+								<input id='personalPhoto' type='file' onChange={addImage2} />
 							</div>
 						</div>
 					</div>
