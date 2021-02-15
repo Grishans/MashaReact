@@ -1352,6 +1352,22 @@ footer {
   flex-direction: column;
   margin: 0 0 0 20%;
 }
+label#AdminEditLabel {
+  cursor: pointer;
+  color: #197bbd;
+  height: 40px;
+  background: #fff;
+  border: 2px solid #197bbd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  padding: 0 5px;
+}
+label#AdminEditLabel:hover {
+  background: #197bbd;
+  color: #fff;
+}
 
 .adminHeader {
   display: flex;
@@ -1606,6 +1622,9 @@ img.adminCross {
   height: 60px;
   background: rgba(0, 0, 0, 0.4);
 }
+.ascb__inputs__addImg input {
+  display: none;
+}
 .ascb__inputs__img img {
   width: 100%;
   max-height: 460px;
@@ -1699,6 +1718,7 @@ img.adminCross {
   position: relative;
   width: 32%;
   margin: 5px;
+  min-height: 400px;
 }
 .admin__portfolio__wrap
   .portfolio__section
@@ -1706,6 +1726,7 @@ img.adminCross {
   li
   .admin__portfolio__img__change:nth-child(even) {
   height: 32.5%;
+  min-height: unset;
 }
 .admin__portfolio__wrap
   .portfolio__section
