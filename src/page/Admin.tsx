@@ -20,7 +20,6 @@ const Admin: React.FC = (): React.ReactElement => {
     document.querySelector("#adminPortf")?.addEventListener("click", () => {
       setTimeout(function () {
         document.getElementById("labelWeeding")?.click();
-        console.log(document.getElementById("labelWeeding"));
       }, 2000);
     });
   }, []);

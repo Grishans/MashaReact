@@ -1546,6 +1546,9 @@ button.adminSAVE:hover {
   color: #fff;
 }
 button.adminDELETE {
+  position: absolute;
+  top: 1%;
+  left: 1%;
   width: 130px;
   height: 36px;
   color: #e00013;
@@ -1556,6 +1559,7 @@ button.adminDELETE {
   box-sizing: border-box;
   cursor: pointer;
   transition: 0.2s;
+  z-index: 99;
 }
 button.adminDELETE:hover {
   border-color: #fff;
