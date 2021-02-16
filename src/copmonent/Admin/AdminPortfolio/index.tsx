@@ -283,52 +283,6 @@ const AdminPortfolio: React.FC = observer(
 			setPortfolioAdd((prev) => !prev)
 		}, [])
 
-<<<<<<< HEAD
-		React.useEffect(() => {
-			const addBTN = document.querySelector<HTMLButtonElement>("#adminADD")
-			addBTN!.onclick = portfolioNewShow
-		}, [portfolioNewShow])
-		React.useEffect(() => {
-			portfolio && setCurrentId(portfolio[0]._id!)
-			portfolio && setCurrentSlide(portfolio[0]!)
-			setTimeout(changeSlide, 100)
-			// changeSlide();
-		}, [changeSlide, portfolio])
-		return (
-			<>
-				<div className='admin__sevices__wrap'>
-					<div className='admin__services__btn'>
-						<Select
-							defaultValue={currentId && currentId!}
-							value={currentId && currentId!}
-							onChange={changePortfolio}
-							id='selectPort'>
-							{portfolio &&
-								portfolio.map((item, index) => (
-									<Option id='labelWeeding' value={item._id!} key={index}>
-										{item.title}
-									</Option>
-								))}
-						</Select>
-						<AdminBTN Add />
-						<AdminBTN Save onClick={saveForm} />
-					</div>
-					<div className='admin__portfolio__title'>
-						<label>Изменить название</label>
-						<input
-							value={currentSlide && currentSlide.title}
-							name='title'
-							onChange={(e) =>
-								setCurrentSlide((pre) => ({
-									...pre,
-									[e.target.name]: e.target.value,
-								}))
-							}
-							className='adminInput'
-							type='text'
-						/>
-					</div>
-=======
     React.useEffect(() => {
       const addBTN = document.querySelector<HTMLButtonElement>("#adminADD");
       addBTN!.onclick = portfolioNewShow;
@@ -375,7 +329,6 @@ const AdminPortfolio: React.FC = observer(
               type="text"
             />
           </div>
->>>>>>> 5f898b1ee8cace795b39254418e136a390636529
 
 					<div className='admin__portfolio__wrap'>
 						<div className='portfolio__slideButton'>
