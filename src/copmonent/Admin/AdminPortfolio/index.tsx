@@ -14,6 +14,7 @@ type TFilePhoto = {
 	photo6?: any
 }
 const AdminPortfolio: React.FC = observer(
+<<<<<<< HEAD
 	(): React.ReactElement => {
 		const portfolio: IPortfolio[] = portfolioStores.items
 		const [currentId, setCurrentId] = React.useState<string>("")
@@ -24,12 +25,26 @@ const AdminPortfolio: React.FC = observer(
 		const current_slide = React.useRef<HTMLParagraphElement>(null)
 		const quantity_slide = React.useRef<HTMLParagraphElement>(null)
 		const { Option } = Select
+=======
+  (): React.ReactElement => {
+    const portfolio: IPortfolio[] = portfolioStores.items;
+    const [currentId, setCurrentId] = React.useState<string>("");
+    const [currentSlide, setCurrentSlide] = React.useState<IPortfolio>();
+    const [photoSlide, setPhotoSlide] = React.useState<TFilePhoto>();
+    const WeedingRef = React.useRef<HTMLUListElement>(null);
+    // const NightRef = React.useRef<HTMLUListElement>(null);
+    // const DayRef = React.useRef<HTMLUListElement>(null);
+    const current_slide = React.useRef<HTMLParagraphElement>(null);
+    const quantity_slide = React.useRef<HTMLParagraphElement>(null);
+    const { Option } = Select;
+>>>>>>> 5f898b1ee8cace795b39254418e136a390636529
 
 		const addPhoto = (e: React.ChangeEvent<HTMLInputElement>): void => {
 			const file = e.target.files![0]
 			setPhotoSlide((pre) => ({ ...pre, [e.target.name]: file }))
 		}
 
+<<<<<<< HEAD
 		const changeObj = async (
 			id: string,
 			e: React.ChangeEvent<HTMLInputElement>,
@@ -42,6 +57,67 @@ const AdminPortfolio: React.FC = observer(
 				console.error(`Ошибка добавления файла: ${error}`)
 			}
 		}
+=======
+    const changeSlide = React.useCallback(() => {
+      let step: any;
+      let quantity: any;
+      let slideWidth: any;
+      let currentSlider: any;
+      let customPrev = document.querySelector("#customPrev");
+      let customNext = document.querySelector("#customNext");
+
+      quantity = document.querySelectorAll(
+        "#portfolio__weeding > .port__slider > #ul > li"
+      ).length;
+
+      step = document.querySelector(
+        "#portfolio__weeding > .port__slider > #ul > li"
+      );
+      slideWidth = 0;
+      currentSlider = 1;
+      current_slide.current!.innerHTML = String(currentSlider);
+      quantity_slide.current!.innerHTML = String(quantity);
+      WeedingRef.current!.style.left = "0px";
+
+      customPrev!.addEventListener("click", () => {
+        slideWidth -= step.offsetWidth;
+        currentSlider -= 1;
+        WeedingRef.current!.style.left = "-" + slideWidth + "px";
+
+        if (currentSlider < 1) {
+          slideWidth = step.offsetWidth * (quantity - 1);
+          WeedingRef.current!.style.left = "-" + slideWidth + "px";
+
+          currentSlider = quantity;
+        }
+        current_slide.current!.innerHTML = currentSlider;
+      });
+      customNext!.addEventListener("click", () => {
+        slideWidth += step.offsetWidth;
+        currentSlider += 1;
+        WeedingRef.current!.style.left = "-" + slideWidth + "px";
+
+        if (currentSlider > quantity) {
+          WeedingRef.current!.style.left = "0px";
+          currentSlider = 1;
+          slideWidth = 0;
+        }
+        current_slide.current!.innerHTML = currentSlider;
+      });
+    }, []);
+    /* function handleChange(value: any) {
+			var step: any
+			var quantity: any
+			var slideWidth: any
+			var currentSlide: any
+			var customPrev = document.querySelector("#customPrev")
+			var customNext = document.querySelector("#customNext")
+
+			if (value === "Weeding") {
+				document.getElementById("portfolio__weeding")!.style.display = "block"
+				document.getElementById("portfolio__night")!.style.display = "none"
+				document.getElementById("portfolio__day")!.style.display = "none"
+>>>>>>> 5f898b1ee8cace795b39254418e136a390636529
 
 		const changeSlide = React.useCallback(() => {
 			let step: any
@@ -207,6 +283,7 @@ const AdminPortfolio: React.FC = observer(
 			setPortfolioAdd((prev) => !prev)
 		}, [])
 
+<<<<<<< HEAD
 		React.useEffect(() => {
 			const addBTN = document.querySelector<HTMLButtonElement>("#adminADD")
 			addBTN!.onclick = portfolioNewShow
@@ -251,6 +328,54 @@ const AdminPortfolio: React.FC = observer(
 							type='text'
 						/>
 					</div>
+=======
+    React.useEffect(() => {
+      const addBTN = document.querySelector<HTMLButtonElement>("#adminADD");
+      addBTN!.onclick = portfolioNewShow;
+    }, [portfolioNewShow]);
+    React.useEffect(() => {
+      portfolio && setCurrentId(portfolio[0]._id!);
+      portfolio && setCurrentSlide(portfolio[0]!);
+      setTimeout(changeSlide, 100);
+      // changeSlide();
+    }, [changeSlide, portfolio]);
+    return (
+      <>
+        <div className="admin__sevices__wrap">
+          <div className="admin__services__btn">
+            <Select
+              defaultValue={currentId && currentId!}
+              value={currentId && currentId!}
+              onChange={changePortfolio}
+              id="selectPort"
+            >
+              {portfolio &&
+                portfolio.map((item, index) => (
+                  <Option id="labelWeeding" value={item._id!} key={index}>
+                    {item.title}
+                  </Option>
+                ))}
+            </Select>
+            <AdminBTN Add />
+            <AdminBTN Save onClick={saveForm} />
+            <AdminBTN Delete />
+          </div>
+          <div className="admin__portfolio__title">
+            <label>Изменить название</label>
+            <input
+              value={currentSlide && currentSlide.title}
+              name="title"
+              onChange={(e) =>
+                setCurrentSlide((pre) => ({
+                  ...pre,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+              className="adminInput"
+              type="text"
+            />
+          </div>
+>>>>>>> 5f898b1ee8cace795b39254418e136a390636529
 
 					<div className='admin__portfolio__wrap'>
 						<div className='portfolio__slideButton'>
