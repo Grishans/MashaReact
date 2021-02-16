@@ -20,8 +20,8 @@ const AdminPortfolio: React.FC = observer(
     const [currentSlide, setCurrentSlide] = React.useState<IPortfolio>();
     const [photoSlide, setPhotoSlide] = React.useState<TFilePhoto>();
     const WeedingRef = React.useRef<HTMLUListElement>(null);
-    const NightRef = React.useRef<HTMLUListElement>(null);
-    const DayRef = React.useRef<HTMLUListElement>(null);
+    // const NightRef = React.useRef<HTMLUListElement>(null);
+    // const DayRef = React.useRef<HTMLUListElement>(null);
     const current_slide = React.useRef<HTMLParagraphElement>(null);
     const quantity_slide = React.useRef<HTMLParagraphElement>(null);
     const { Option } = Select;
@@ -56,13 +56,11 @@ const AdminPortfolio: React.FC = observer(
         slideWidth -= step.offsetWidth;
         currentSlider -= 1;
         WeedingRef.current!.style.left = "-" + slideWidth + "px";
-        // NightRef.current!.style.left = "-" + slideWidth + "px";
-        // DayRef.current!.style.left = "-" + slideWidth + "px";
+
         if (currentSlider < 1) {
           slideWidth = step.offsetWidth * (quantity - 1);
           WeedingRef.current!.style.left = "-" + slideWidth + "px";
-          // NightRef.current!.style.left = "-" + slideWidth + "px";
-          // DayRef.current!.style.left = "-" + slideWidth + "px";
+
           currentSlider = quantity;
         }
         current_slide.current!.innerHTML = currentSlider;
@@ -71,12 +69,9 @@ const AdminPortfolio: React.FC = observer(
         slideWidth += step.offsetWidth;
         currentSlider += 1;
         WeedingRef.current!.style.left = "-" + slideWidth + "px";
-        // NightRef.current!.style.left = "-" + slideWidth + "px";
-        // DayRef.current!.style.left = "-" + slideWidth + "px";
+
         if (currentSlider > quantity) {
           WeedingRef.current!.style.left = "0px";
-          // NightRef.current!.style.left = "0px";
-          // DayRef.current!.style.left = "0px";
           currentSlider = 1;
           slideWidth = 0;
         }
@@ -264,6 +259,7 @@ const AdminPortfolio: React.FC = observer(
             </Select>
             <AdminBTN Add />
             <AdminBTN Save onClick={saveForm} />
+            <AdminBTN Delete />
           </div>
           <div className="admin__portfolio__title">
             <label>Изменить название</label>

@@ -1545,6 +1545,23 @@ button.adminSAVE:hover {
   background: #aa4d54;
   color: #fff;
 }
+button.adminDELETE {
+  width: 130px;
+  height: 36px;
+  color: #e00013;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  border: 2px solid #e00013;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button.adminDELETE:hover {
+  border-color: #fff;
+  background: #e00013;
+  color: #fff;
+}
 img.adminCross {
   cursor: pointer;
 }
