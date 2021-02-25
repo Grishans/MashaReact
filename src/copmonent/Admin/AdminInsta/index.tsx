@@ -48,7 +48,7 @@ const AdminInst: React.FC = observer(
 			try {
 				let pics: any
 				photo !== undefined ? (pics = await attach(photo)) : (pics = "")
-				if (current && current._id!.length > 0) {
+				if (current && current._id!) {
 					const obj: IInst = {
 						_id: current && current._id,
 						link: current && current.link,

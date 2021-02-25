@@ -3,11 +3,25 @@ import SlickSlider from "react-slick"
 import Slide from "react-reveal/Slide"
 import Fade from "react-reveal/Fade"
 import { observer } from "mobx-react-lite"
-import { IAbout, IPortfolio, IService, ISettings } from "../types"
+import {
+	IAbout,
+	ICourse,
+	IForm,
+	IInst,
+	IPortfolio,
+	IReviews,
+	IService,
+	ISettings,
+} from "../types"
 import { aboutsStores } from "../stores/aboutsStores"
 import { settingsStores } from "../stores/settingsStores"
 import { servicesStores } from "../stores/servicesStores"
 import { portfolioStores } from "../stores/portfolioStores"
+import classNames from "classnames"
+import { coursecStores } from "../stores/coursesStores"
+import { reviewsStores } from "../stores/reviewsStores"
+import { instaStores } from "../stores/instaStores"
+import { formStores } from "../stores/formStores"
 
 const Home: React.FC = observer(
 	(): React.ReactElement => {
@@ -15,6 +29,9 @@ const Home: React.FC = observer(
 		const settngs: ISettings = settingsStores.items
 		const service: IService[] = servicesStores.items
 		const portfolio: IPortfolio[] = portfolioStores.items
+		const course: ICourse[] = coursecStores.items
+		const reviews: IReviews[] = reviewsStores.items
+		const insta: IInst[] = instaStores.items
 
 		const [currentId, setCurrentId] = React.useState<string>("")
 		const [currentSlide, setCurrentSlide] = React.useState<IPortfolio>()
@@ -81,6 +98,23 @@ const Home: React.FC = observer(
 		const reviewsText = React.useRef<HTMLDivElement>(null)
 		const Nav = React.useRef<HTMLUListElement>(null)
 		const main_navMobil = React.useRef<HTMLUListElement>(null)
+		const [formData, setFormData] = React.useState<IForm>({})
+
+		const formAdded = async (e: any): Promise<void> => {
+			try {
+				e.preventDefault()
+				await formStores.create(formData)
+				alert("Вы записались!!!")
+			} catch (error) {
+				console.error(`Ошибка записи на курсы/макияж: ${error}`)
+			}
+		}
+
+		const changeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+			const field = e.target.name
+			const val = e.target.value
+			setFormData((pre) => ({ ...pre, [field]: val }))
+		}
 
 		const [headerNav, setHeaderNav] = React.useState(false)
 		const navShow = React.useCallback(() => {
@@ -186,68 +220,71 @@ const Home: React.FC = observer(
 			//setTimeout(customSlider, 100)
 		}
 		const customSlider = React.useCallback(() => {
-			var step: any
-			var quantity: any
-			var slideWidth: any
-			var currentSlide: any
-			var Weeding = document.querySelector("#labelWeeding")
-			var customPrev = document.querySelector("#customPrev")
-			var customNext = document.querySelector("#customNext")
+			let step: any
+			let quantity: any
+			let slideWidth: any
+			let currentSlide: any
+			let Weeding = document.querySelector("#labelWeeding")
+			let customPrev = document.querySelector("#customPrev")
+			let customNext = document.querySelector("#customNext")
 
-			Weeding!.addEventListener("click", () => {
-				document.getElementById("portfolio__weeding")!.style.display = "block"
-				// document.getElementById("portfolio__night")!.style.display = "none";
-				// document.getElementById("portfolio__day")!.style.display = "none";
+			Weeding &&
+				Weeding!.addEventListener("click", () => {
+					document.getElementById("portfolio__weeding")!.style.display = "block"
+					// document.getElementById("portfolio__night")!.style.display = "none";
+					// document.getElementById("portfolio__day")!.style.display = "none";
 
-				step = document.querySelector(
-					"#portfolio__weeding > .port__slider > #ul > li",
-				)
-				quantity = document.querySelectorAll(
-					"#portfolio__weeding > .port__slider > #ul > li",
-				).length
-				slideWidth = 0
-				currentSlide = 1
-				current_slide.current!.innerHTML = String(currentSlide)
-				quantity_slide.current!.innerHTML = String(quantity)
-				WeedingRef.current!.style.left = "0px"
-
-				Weeding?.setAttribute("style", "color:#aa4d54")
-			})
-
-			customPrev!.addEventListener("click", () => {
-				slideWidth -= step.offsetWidth
-				currentSlide -= 1
-				WeedingRef.current!.style.left = "-" + slideWidth + "px"
-				// NightRef.current!.style.left = "-" + slideWidth + "px";
-				// DayRef.current!.style.left = "-" + slideWidth + "px";
-				if (currentSlide < 1) {
-					slideWidth = step.offsetWidth * (quantity - 1)
-					WeedingRef.current!.style.left = "-" + slideWidth + "px"
-					NightRef.current!.style.left = "-" + slideWidth + "px"
-					DayRef.current!.style.left = "-" + slideWidth + "px"
-					currentSlide = quantity
-				}
-				current_slide.current!.innerHTML = currentSlide
-			})
-
-			customNext!.addEventListener("click", () => {
-				slideWidth += step.offsetWidth
-				currentSlide += 1
-				WeedingRef.current!.style.left = "-" + slideWidth + "px"
-				// NightRef.current!.style.left = "-" + slideWidth + "px";
-				// DayRef.current!.style.left = "-" + slideWidth + "px";
-				if (currentSlide > quantity) {
-					WeedingRef.current!.style.left = "0px"
-					NightRef.current!.style.left = "0px"
-					DayRef.current!.style.left = "0px"
-					currentSlide = 1
+					step = document.querySelector(
+						"#portfolio__weeding > .port__slider > #ul > li",
+					)
+					quantity = document.querySelectorAll(
+						"#portfolio__weeding > .port__slider > #ul > li",
+					).length
 					slideWidth = 0
-				}
-				current_slide.current!.innerHTML = currentSlide
-			})
+					currentSlide = 1
+					current_slide.current!.innerHTML = String(currentSlide)
+					quantity_slide.current!.innerHTML = String(quantity)
+					WeedingRef.current!.style.left = "0px"
 
-			reviewsVideo.current!.style.visibility = "visible"
-			reviewsText.current!.style.visibility = "hidden"
+					//Weeding?.setAttribute("style", "color:#aa4d54")
+				})
+
+			customPrev &&
+				customPrev!.addEventListener("click", () => {
+					slideWidth -= step.offsetWidth
+					currentSlide -= 1
+					WeedingRef.current!.style.left = "-" + slideWidth + "px"
+					// NightRef.current!.style.left = "-" + slideWidth + "px";
+					// DayRef.current!.style.left = "-" + slideWidth + "px";
+					if (currentSlide < 1) {
+						slideWidth = step.offsetWidth * (quantity - 1)
+						WeedingRef.current!.style.left = "-" + slideWidth + "px"
+						NightRef.current!.style.left = "-" + slideWidth + "px"
+						DayRef.current!.style.left = "-" + slideWidth + "px"
+						currentSlide = quantity
+					}
+					current_slide.current!.innerHTML = currentSlide
+				})
+
+			customNext &&
+				customNext!.addEventListener("click", () => {
+					slideWidth += step.offsetWidth
+					currentSlide += 1
+					WeedingRef.current!.style.left = "-" + slideWidth + "px"
+					// NightRef.current!.style.left = "-" + slideWidth + "px";
+					// DayRef.current!.style.left = "-" + slideWidth + "px";
+					if (currentSlide > quantity) {
+						WeedingRef.current!.style.left = "0px"
+						NightRef.current!.style.left = "0px"
+						DayRef.current!.style.left = "0px"
+						currentSlide = 1
+						slideWidth = 0
+					}
+					current_slide.current!.innerHTML = currentSlide
+				})
+
+			//reviewsVideo.current && reviewsVideo.current!.style.visibility = "visible"
+			//reviewsText.current && reviewsText.current!.style.visibility = "hidden"
 
 			document.getElementById("labelWeeding")?.click() // если не кликнуть на любой toogle, то цифры в слайдере не появятся (костыль, наверное)
 			///////////////////////////////////////////////////////////////
@@ -430,12 +467,15 @@ const Home: React.FC = observer(
 		}, [scrollToForm, showCoursesForm, courses])
 
 		React.useEffect(() => {
+			portfolio &&
+				portfolio.length &&
+				setCurrentId(portfolio && portfolio[0]._id!)
+			portfolio &&
+				portfolio.length &&
+				setCurrentSlide(portfolio && portfolio[0]!)
 			setTimeout(() => {
 				portfolio && customSlider()
 			}, 100)
-
-			portfolio && setCurrentId(portfolio && portfolio[0]._id!)
-			portfolio && setCurrentSlide(portfolio && portfolio[0]!)
 			review()
 			whiteOpacity()
 			BtnUp()
@@ -615,6 +655,9 @@ const Home: React.FC = observer(
 											id='labelWeeding'
 											htmlFor='weeding'
 											key={idx}
+											className={classNames({
+												active: currentId && currentId === item._id,
+											})}
 											onClick={() => changePortfolio(item._id)}>
 											{item.title}
 										</label>
@@ -711,36 +754,20 @@ const Home: React.FC = observer(
 					<div className='courses__wrap'>
 						<p className='title'>Курсы</p>
 						<div className='courses__content'>
-							<div className='courses__box'>
-								<span className='courses__title'>“Сам себе визажист”</span>
-								<Fade left cascade>
-									<ul>
-										<li>4 занятия (по 60 минут)</li>
-										<li>определение типа кожи и цветоитпа</li>
-										<li>обучение базовым техникам макияжа</li>
-										<li>обучающие материалы</li>
-									</ul>
-								</Fade>
-								<label htmlFor='Записаться на курс' className='courses_btn'>
-									Записаться на курс
-								</label>
-							</div>
-							<div className='courses__box'>
-								<span className='courses__title'>
-									Базовый курс “Начинающий визажист”
-								</span>
-								<Fade right cascade>
-									<ul>
-										<li>10-15 занятия (по 60 минут)</li>
-										<li>типы кожи и особенности работы</li>
-										<li>базовые техники макияжа</li>
-										<li>обучающие материалы</li>
-									</ul>
-								</Fade>
-								<label htmlFor='Записаться на курс' className='courses_btn'>
-									Записаться на курс
-								</label>
-							</div>
+							{course &&
+								course.map((item, idx) => (
+									<div className='courses__box' key={idx}>
+										<span className='courses__title'>“{item.title}”</span>
+										<Fade left cascade>
+											<ul>
+												<li>{item.desc}</li>
+											</ul>
+										</Fade>
+										<label htmlFor='Записаться на курс' className='courses_btn'>
+											Записаться на курс
+										</label>
+									</div>
+								))}
 						</div>
 					</div>
 					<img src='/img/courses_bg.png' alt='' className='courses_bg' />
@@ -770,14 +797,22 @@ const Home: React.FC = observer(
 								<Fade left fraction={0.5}>
 									<img
 										className='about_paint'
-										src={about ? about.photo1 : "/img/about_paint.png"}
+										src={
+											about
+												? `${process.env.REACT_APP_LINK}${about.photo1}`
+												: "/img/about_paint.png"
+										}
 										alt=''
 									/>
 								</Fade>
 								<Fade right fraction={0.5}>
 									<div className='about_photo'>
 										<img
-											src={about ? about.photo2 : "/img/about_photo.png"}
+											src={
+												about
+													? `${process.env.REACT_APP_LINK}${about.photo2}`
+													: "/img/about_photo.png"
+											}
 											alt=''
 										/>
 									</div>
@@ -835,31 +870,18 @@ const Home: React.FC = observer(
 							<hr />
 							<div className='slider multiple-items'>
 								<SlickSlider {...settingsOne}>
-									<div>
-										<div className='services__box'>
-											<video controls src='/img/video.mp4'></video>
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<video controls src='/img/video.mp4'></video>
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<video controls src='/img/video.mp4'></video>
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<video controls src='/img/video.mp4'></video>
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<video controls src='/img/video.mp4'></video>
-										</div>
-									</div>
+									{reviews &&
+										reviews
+											.filter((fil) => fil.type === 0)
+											.map((item, idx) => (
+												<div key={idx}>
+													<div className='services__box'>
+														<video
+															controls
+															src={`${process.env.REACT_APP_LINK}${item.file}`}></video>
+													</div>
+												</div>
+											))}
 								</SlickSlider>
 							</div>
 							<ul className='slider_dots'></ul>
@@ -872,31 +894,19 @@ const Home: React.FC = observer(
 							<hr />
 							<div className='slider multiple-items'>
 								<SlickSlider {...settingsOne}>
-									<div>
-										<div className='services__box'>
-											<img src='/img/review_template.png' alt='' />
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<img src='/img/review_template.png' alt='' />
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<img src='/img/review_template.png' alt='' />
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<img src='/img/review_template.png' alt='' />
-										</div>
-									</div>
-									<div>
-										<div className='services__box'>
-											<img src='/img/review_template.png' alt='' />
-										</div>
-									</div>
+									{reviews &&
+										reviews
+											.filter((fil) => fil.type === 1)
+											.map((item, idx) => (
+												<div key={idx}>
+													<div className='services__box'>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.file}`}
+															alt=''
+														/>
+													</div>
+												</div>
+											))}
 								</SlickSlider>
 							</div>
 							<ul className='slider_dots'></ul>
@@ -913,9 +923,7 @@ const Home: React.FC = observer(
 					<div className='services__wrap'>
 						<div className='instagram__title'>
 							<p>Подписывайтесь на мой Instagram!</p>
-							<a
-								href='https://www.instagram.com/mariyasafirmua/'
-								target='blank'>
+							<a href={settngs && settngs.inst} target='blank'>
 								<span>@mariyasafirmua</span>
 							</a>
 							<img src='/img/insta_dog.svg' alt='' />
@@ -923,54 +931,20 @@ const Home: React.FC = observer(
 
 						<div className='slider multiple-itemsInst'>
 							<SlickSlider {...settingsTwo}>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
-								<div>
-									<div className='services__box insta__box'>
-										<img src='/img/services_1.png' alt='' />
-										<a href='/' className='insta__box__bg_hover'>
-											<img src='/img/instagram.svg' alt='' />
-										</a>
-									</div>
-								</div>
+								{insta &&
+									insta.map((item, idx) => (
+										<div key={idx}>
+											<div className='services__box insta__box'>
+												<img
+													src={`${process.env.REACT_APP_LINK}${item.photo}`}
+													alt=''
+												/>
+												<a href={item.link} className='insta__box__bg_hover'>
+													<img src='/img/instagram.svg' alt='' />
+												</a>
+											</div>
+										</div>
+									))}
 							</SlickSlider>
 						</div>
 						<ul className='slider_dots'></ul>
@@ -984,41 +958,71 @@ const Home: React.FC = observer(
 					<div className='form__wrap'>
 						<div className='form__application'>
 							<p className='form_title'>Форма заявки</p>
-							<form className='form' action=''>
-								<input type='text' placeholder='Имя' required />
+							<form className='form' onSubmit={formAdded}>
+								<input
+									type='text'
+									placeholder='Имя'
+									name='name'
+									value={formData.name}
+									onChange={changeInput}
+									required
+								/>
 								<input
 									type='tel'
 									id='phone'
 									name='phone'
+									value={formData.phone}
+									onChange={changeInput}
 									pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
 									placeholder='Номер телефона'
 									title='000-000-0000'
 									required
 								/>
-								<input type='text' placeholder='Дата' required />
+								<input
+									type='text'
+									value={formData.data}
+									onChange={changeInput}
+									name='data'
+									placeholder='Дата'
+									required
+								/>
 								{services && (
-									<select defaultValue={"DEFAULT"} id='FormSelect'>
+									<select
+										name='type'
+										defaultValue={"DEFAULT"}
+										id='FormSelect'
+										value={formData.type}
+										onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+											setFormData((pre) => ({ ...pre, type: e.target.value }))
+										}}>
 										<option value='DEFAULT' disabled>
 											Тип макияжа
 										</option>
-										<option value='Свадебный макияж'>Свадебный макияж</option>
-										<option value='Вечерний макияж'>Вечерний макияж</option>
-										<option value='Макияж на фотосессию'>
-											Макияж на фотосессию
-										</option>
+										{service &&
+											service.map((item, idx) => (
+												<option key={idx} value={item.title}>
+													{item.title}
+												</option>
+											))}
 									</select>
 								)}
 								{courses && (
-									<select defaultValue={"DEFAULT"} id='FormSelect'>
+									<select
+										defaultValue={"DEFAULT"}
+										id='FormSelect'
+										value={formData.type}
+										onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+											setFormData((pre) => ({ ...pre, type: e.target.value }))
+										}}>
 										<option value='DEFAULT' disabled>
 											Курс
 										</option>
-										<option value='“Сам себе визажист”'>
-											“Сам себе визажист”
-										</option>
-										<option value='Базовый курс “Начинающий визажист”'>
-											Базовый курс “Начинающий визажист”
-										</option>
+										{course &&
+											course.map((item, idx) => (
+												<option key={idx} value={item.title}>
+													“{item.title}”
+												</option>
+											))}
 									</select>
 								)}
 								<input type='submit' value='Записаться' />
@@ -1061,10 +1065,10 @@ const Home: React.FC = observer(
 								</p>
 							</div>
 							<div className='footer__sn'>
-								<a href='/'>
+								<a href={settngs && settngs.inst}>
 									<img src='/img/instagram_footer.svg' alt='' />
 								</a>
-								<a href='/'>
+								<a href={settngs && settngs.fb}>
 									<img src='/img/facebook_footer.svg' alt='' />
 								</a>
 							</div>

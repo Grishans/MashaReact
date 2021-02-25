@@ -379,6 +379,9 @@ section.portfolio {
   font-weight: 500;
   cursor: pointer;
 }
+.portfolio__toogle .active {
+  color:#aa4d54;
+}
 #portfolio__weeding {
   display: block;
 }
