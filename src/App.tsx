@@ -11,6 +11,7 @@ import { reviewsStores } from "./stores/reviewsStores"
 import { instaStores } from "./stores/instaStores"
 import { portfolioStores } from "./stores/portfolioStores"
 import { formStores } from "./stores/formStores"
+import userStores from "./stores/userStores"
 
 const App: React.FC = (): React.ReactElement => {
 	React.useEffect(() => {
@@ -22,6 +23,7 @@ const App: React.FC = (): React.ReactElement => {
 		instaStores.fetchData()
 		portfolioStores.fetchData()
 		formStores.fetchData()
+		userStores.getMe()
 	}, [])
 	return (
 		<Switch>

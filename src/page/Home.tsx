@@ -573,11 +573,11 @@ const Home: React.FC = observer(
 
 								<Slide right cascade>
 									<div className='header__main__sn'>
-										<a href='/'>
+										<a href={settngs && settngs.fb}>
 											<img src='/img/facebook.svg' alt='' />
 										</a>
 
-										<a href='/'>
+										<a href={settngs && settngs.inst}>
 											<img src='/img/instagram.svg' alt='' />
 										</a>
 									</div>

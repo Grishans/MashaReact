@@ -33,13 +33,17 @@ class FormStores {
 			this.items = this.items.map((item) =>
 				item._id === obj._id ? (item = data.data) : item,
 			)
+			alert("Запись завершена!")
 		} catch (error) {
 			console.error(`Ошибка Курсы(Редактирование): ${error}`)
 		}
 	}
 	delete = async (id: string): Promise<void> => {
 		try {
-			this.items.filter((item) => item._id !== id)
+			const { data } = await formApi.delete(id)
+			console.log("data", data)
+			this.items = this.items.filter((item) => item._id !== data.data._id)
+			alert("Запись удалена!")
 		} catch (error) {
 			console.error(`Ошибка Курсы(Удаление): ${error}`)
 		}
