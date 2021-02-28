@@ -217,7 +217,7 @@ const Home: React.FC = observer(
 			setCurrentSlide(
 				portfolio && portfolio.filter((item) => item._id === e)[0],
 			)
-			//setTimeout(customSlider, 100)
+			// setTimeout(customSlider, 100)
 		}
 		const customSlider = React.useCallback(() => {
 			let step: any
