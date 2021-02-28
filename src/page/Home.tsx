@@ -268,7 +268,7 @@ const Home: React.FC = observer(
 
 			customNext &&
 				customNext!.addEventListener("click", () => {
-					slideWidth += step.offsetWidth
+					slideWidth! += step!.offsetWidth!
 					currentSlide += 1
 					WeedingRef.current!.style.left = "-" + slideWidth + "px"
 					// NightRef.current!.style.left = "-" + slideWidth + "px";
