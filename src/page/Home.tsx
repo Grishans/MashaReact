@@ -40,27 +40,6 @@ const Home: React.FC = observer(
 			infinite: true,
 			slidesToShow: 1,
 			slidesToScroll: 1,
-			//dots: false,
-			//dotsClass: "slider_dots",
-			//draggable: false,
-			/* responsive: [
-				{
-					breakpoint: 900,
-					settings: {
-						arrows: false,
-						slidesToShow: 2.5,
-						draggable: true,
-					},
-				},
-				{
-					breakpoint: 500,
-					settings: {
-						arrows: false,
-						slidesToShow: 1.5,
-						draggable: true,
-					},
-				},
-			], */
 		}
 		const settingsOne = {
 			infinite: false,
@@ -69,7 +48,6 @@ const Home: React.FC = observer(
 			dots: true,
 			dotsClass: "slider_dots",
 			draggable: false,
-			adaptiveHeight: true,
 			responsive: [
 				{
 					breakpoint: 900,
@@ -500,9 +478,9 @@ const Home: React.FC = observer(
 			portfolio &&
 				portfolio.length &&
 				setCurrentSlide(portfolio && portfolio[0]!)
-			setTimeout(() => {
+			/* setTimeout(() => {
 				portfolio && customSlider()
-			}, 100)
+			}, 100) */
 			review()
 			whiteOpacity()
 			BtnUp()
