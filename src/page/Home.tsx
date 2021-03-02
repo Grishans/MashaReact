@@ -69,6 +69,7 @@ const Home: React.FC = observer(
 			dots: true,
 			dotsClass: "slider_dots",
 			draggable: false,
+			adaptiveHeight: true,
 			responsive: [
 				{
 					breakpoint: 900,

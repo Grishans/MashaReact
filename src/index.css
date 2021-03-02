@@ -1917,10 +1917,10 @@ p.adminAbout__remainder span {
 }
 .amdin__reviews__content__wrap {
   display: flex;
-  flex-wrap: wrap;
 }
 .arcw__video__wrap {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 30px;
   width: 100%;
 }
@@ -1956,6 +1956,7 @@ p.adminAbout__remainder span {
 }
 .arcw__text__wrap {
   display: flex;
+  flex-wrap: wrap;
 }
 
 /* Admin Instagram */
