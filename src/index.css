@@ -414,9 +414,9 @@ section.portfolio {
 .portfolio__slide__wrap img:nth-child(5) {
   transform: translateY(-34%);
 }
-.port__slider {
+/* .port__slider {
   overflow-x: hidden;
-}
+} */
 ul#ul {
   position: relative;
   left: 0;
@@ -451,7 +451,7 @@ ul#ul li img:nth-child(5) {
   width: 100%;
   padding: 0;
 } */
-ul#ul1 .portSlider {
+/* ul#ul1 .portSlider {
   list-style-type: none;
   display: flex !important;
   flex-wrap: wrap;
@@ -469,12 +469,68 @@ ul#ul1 .portSlider img:nth-child(even) {
 }
 ul#ul1 .portSlider img:nth-child(5) {
   transform: translateY(-55%);
+} */
+ul#ul1 .portSlider {
+  display: grid !important;
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  gap: 5px 5px;
+  grid-template-areas:
+    "port1 port2 port3"
+    "port1 port5 port3"
+    "port4 port5 port6";
+  min-width: 100%;
 }
+ul#ul1 .portSlider img {
+  width: 100%;
+}
+.port1 {
+  grid-area: port1;
+}
+.port2 {
+  grid-area: port2;
+}
+.port3 {
+  grid-area: port3;
+}
+.port4 {
+  grid-area: port4;
+}
+.port5 {
+  grid-area: port5;
+}
+.port6 {
+  grid-area: port6;
+}
+ul#ul1 .slick-slider .slick-arrow {
+  top: -5%;
+  color: #000;
+  border-radius: 50%;
+  font-size: 0;
+}
+ul#ul1 .slick-slider .slick-prev {
+  right: 7%;
+  left: unset;
+}
+ul#ul1 .slick-slider .slick-prev::before {
+  content: "<";
+  color: #000;
+  font-size: 25pt;
+}
+ul#ul1 .slick-slider .slick-next {
+  right: 2%;
+}
+ul#ul1 .slick-slider .slick-next::before {
+  content: ">";
+  color: #000;
+  font-size: 25pt;
+}
+
 .portfolio__slideButton {
   position: absolute;
   display: flex;
   align-items: center;
-  right: 1%;
+  right: 4%;
   top: 7%;
   z-index: 1;
   color: #000;
