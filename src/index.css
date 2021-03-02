@@ -443,6 +443,32 @@ ul#ul li img:nth-child(even) {
 ul#ul li img:nth-child(5) {
   transform: translateY(-34%);
 }
+ul#ul1 {
+  position: relative;
+  left: 0;
+  display: flex;
+  transition: 0.3s;
+  width: 100%;
+  padding: 0;
+}
+ul#ul1 li {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 100%;
+  z-index: 0;
+  transition: 0.3s;
+}
+ul#ul1 li img {
+  width: 32%;
+  margin: 5px;
+}
+ul#ul1 li img:nth-child(even) {
+  height: 32.5%;
+}
+ul#ul1 li img:nth-child(5) {
+  transform: translateY(-34%);
+}
 .portfolio__slideButton {
   position: absolute;
   display: flex;

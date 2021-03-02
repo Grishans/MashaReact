@@ -16,6 +16,7 @@ const AdminReviews: React.FC = observer(
 		const [objects, setObjects] = React.useState<Blob>()
 		const [reviesVideoShow, setReviewsVideoShow] = React.useState<boolean>(true)
 		const [reviesTextShow, setReviewsTextShow] = React.useState<boolean>(false)
+		const [current, setCurrent] = React.useState<IReviews | undefined>()
 
 		const addObj = async (
 			e: React.ChangeEvent<HTMLInputElement>,
@@ -26,6 +27,21 @@ const AdminReviews: React.FC = observer(
 			} catch (error) {
 				console.error(`Ошибка добавления файла: ${error}`)
 			}
+		}
+
+		const changeObj = async (
+			e: React.ChangeEvent<HTMLInputElement>,
+		): Promise<void> => {
+			try {
+				const file = e.target.files
+				setObjects(file![0])
+			} catch (error) {
+				console.error(`Ошибка добавления файла: ${error}`)
+			}
+		}
+
+		const currenter = (e: IReviews): void => {
+			current === undefined && setCurrent(e)
 		}
 
 		const ReviewsAddShow = React.useCallback(() => {
@@ -44,7 +60,8 @@ const AdminReviews: React.FC = observer(
 		React.useEffect(() => {
 			const addBTN = document.querySelector<HTMLButtonElement>("#adminADD")
 			addBTN!.onclick = ReviewsAddShow
-		})
+			setTypes(0)
+		}, [ReviewsAddShow])
 
 		const handleChange = (value: number): void => {
 			setTypes(value)
@@ -57,7 +74,26 @@ const AdminReviews: React.FC = observer(
 		const saveForm = async (): Promise<void> => {
 			try {
 				let pics: any
-				objects !== undefined ? (pics = await attach(objects)) : (pics = "")
+				objects !== undefined
+					? (pics = await attach(objects))
+					: current
+					? (pics = current.file)
+					: (pics = "")
+
+				if (current !== undefined) {
+					const obj: IReviews = {
+						_id: current._id,
+						file: pics,
+						filetype: types === 1 ? "image" : "video",
+						type: types,
+					}
+					reviewsStores.edit(obj)
+					setObjects(undefined)
+					setCurrent(undefined)
+					alert("Изменения сохранены!")
+					return
+				}
+
 				const obj: IReviews = {
 					file: pics,
 					filetype: types === 1 ? "image" : "video",
@@ -66,6 +102,7 @@ const AdminReviews: React.FC = observer(
 				reviewsStores.create(obj)
 				setReviewsAdd(false)
 				setObjects(undefined)
+				setCurrent(undefined)
 			} catch (error) {
 				console.error(`Ошибка сохранения Отзывы: ${error}`)
 			}
@@ -136,11 +173,23 @@ const AdminReviews: React.FC = observer(
 												<div className='arcw__bottomImg'>
 													<video
 														controls
-														src={`${process.env.REACT_APP_LINK}${item.file}`}></video>
+														src={
+															objects && current && current._id === item._id
+																? URL.createObjectURL(objects)
+																: `${process.env.REACT_APP_LINK}${item.file}`
+														}></video>
 												</div>
 												<div className='Admin__change'>
-													<label htmlFor='personalPhoto'>Изменить видео</label>
-													<input id='personalPhoto' type='file' />
+													<label
+														htmlFor='personalPhoto'
+														onClick={() => currenter(item)}>
+														Изменить видео
+													</label>
+													<input
+														id='personalPhoto'
+														type='file'
+														onChange={changeObj}
+													/>
 												</div>
 											</div>
 										))}
@@ -191,13 +240,25 @@ const AdminReviews: React.FC = observer(
 												</div>
 												<div className='arcw__bottomImg'>
 													<img
-														src={`${process.env.REACT_APP_LINK}${item.file}`}
+														src={
+															objects && current && current._id === item._id
+																? URL.createObjectURL(objects)
+																: `${process.env.REACT_APP_LINK}${item.file}`
+														}
 														alt=''
 													/>
 												</div>
 												<div className='Admin__change'>
-													<label htmlFor='personalPhoto'>Изменить видео</label>
-													<input id='personalPhoto' type='file' />
+													<label
+														htmlFor='personalPhoto'
+														onClick={() => currenter(item)}>
+														Изменить видео
+													</label>
+													<input
+														id='personalPhoto'
+														type='file'
+														onChange={changeObj}
+													/>
 												</div>
 											</div>
 										))}

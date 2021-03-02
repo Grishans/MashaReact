@@ -28,16 +28,18 @@ const AdminInst: React.FC = observer(
 			}
 		}
 		const changeObj = async (
-			item: any,
 			e: React.ChangeEvent<HTMLInputElement>,
 		): Promise<void> => {
 			try {
 				const file = e.target.files
 				setPhoto(file![0])
-				setCurrent(item)
 			} catch (error) {
 				console.error(`Ошибка добавления файла: ${error}`)
 			}
+		}
+
+		const currenter = (e: IInst): void => {
+			current === undefined && setCurrent(e)
 		}
 
 		const changeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -48,6 +50,7 @@ const AdminInst: React.FC = observer(
 			try {
 				let pics: any
 				photo !== undefined ? (pics = await attach(photo)) : (pics = "")
+
 				if (current && current._id!) {
 					const obj: IInst = {
 						_id: current && current._id,
@@ -55,7 +58,7 @@ const AdminInst: React.FC = observer(
 						photo: pics,
 					}
 					instaStores.edit(obj)
-					alert("Фотография изменена!")
+					alert("Данные изменена!")
 					setInstAdd(false)
 					setCurrent(undefined)
 					setPhoto(null)
@@ -158,24 +161,39 @@ const AdminInst: React.FC = observer(
 											type='text'
 											id='adminInst'
 											name='link'
-											value={item.link}
-											onChange={(e) => (item.link = e.target.value)}
+											onClick={() => currenter(item)}
+											value={
+												current && current._id === item._id
+													? current.link
+													: item.link
+											}
+											onChange={(e) => {
+												item.link = e.target.value
+											}}
 											className='adminInput'
 											placeholder='Введите ссылку'
 										/>
 									</div>
 									<div className='aib__img'>
 										<img
-											src={`${process.env.REACT_APP_LINK}${item.photo}`}
+											src={
+												photo && item._id === current?._id
+													? URL.createObjectURL(photo)
+													: `${process.env.REACT_APP_LINK}${item.photo}`
+											}
 											alt=''
 										/>
 									</div>
 									<div className='Admin__change'>
-										<label htmlFor='decorationPhoto'>Изменить фотографию</label>
+										<label
+											htmlFor='decorationPhoto'
+											onClick={() => currenter(item)}>
+											Изменить фотографию
+										</label>
 										<input
 											id='decorationPhoto'
 											type='file'
-											onChange={(e) => changeObj(item, e)}
+											onChange={changeObj}
 										/>
 									</div>
 								</div>

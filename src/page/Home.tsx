@@ -36,6 +36,32 @@ const Home: React.FC = observer(
 		const [currentId, setCurrentId] = React.useState<string>("")
 		const [currentSlide, setCurrentSlide] = React.useState<IPortfolio>()
 
+		const settingsP = {
+			infinite: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			//dots: false,
+			//dotsClass: "slider_dots",
+			//draggable: false,
+			/* responsive: [
+				{
+					breakpoint: 900,
+					settings: {
+						arrows: false,
+						slidesToShow: 2.5,
+						draggable: true,
+					},
+				},
+				{
+					breakpoint: 500,
+					settings: {
+						arrows: false,
+						slidesToShow: 1.5,
+						draggable: true,
+					},
+				},
+			], */
+		}
 		const settingsOne = {
 			infinite: false,
 			slidesToShow: 3.5,
@@ -268,7 +294,7 @@ const Home: React.FC = observer(
 
 			customNext &&
 				customNext!.addEventListener("click", () => {
-					slideWidth! += step!.offsetWidth!
+					slideWidth! += step && step!.offsetWidth!
 					currentSlide += 1
 					WeedingRef.current!.style.left = "-" + slideWidth + "px"
 					// NightRef.current!.style.left = "-" + slideWidth + "px";
@@ -627,6 +653,131 @@ const Home: React.FC = observer(
 							className='srvice__lastSlide_opacity'></div>
 					</div>
 				</section>
+				{/* Портфолио Начало */}
+				<section className='portfolio' id='portfolio'>
+					<div className='portolio__wrap'>
+						<p className='title'>Портфолио</p>
+
+						<div className='portfolio__slideButton'>
+							<span id='customPrev' className='portfolio_prev'>
+								&#60;
+							</span>
+							<p
+								ref={current_slide}
+								id='firstLetter'
+								className='firstLetter'></p>
+							<p className='delimiter'>/</p>
+							<p ref={quantity_slide} id='delimiter'></p>
+							<span id='customNext' className='portfolio_next'>
+								&#62;
+							</span>
+						</div>
+
+						<div className='portfolio__section'>
+							<div className='portfolio__toogle'>
+								{portfolio &&
+									portfolio.map((item, idx) => (
+										<label
+											id='labelWeeding'
+											htmlFor='weeding'
+											key={idx}
+											className={classNames({
+												active: currentId && currentId === item._id,
+											})}
+											onClick={() => changePortfolio(item._id)}>
+											{item.title}
+										</label>
+									))}
+							</div>
+
+							<div id='portfolio__weeding'>
+								<div className='port__slider'>
+									<ul id='ul1' ref={WeedingRef}>
+										<SlickSlider {...settingsP}>
+											{currentSlide &&
+												currentSlide.photos!.map((item, idx) => (
+													<li key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo1}`}
+															alt=''
+														/>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo2}`}
+															alt=''
+														/>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo3}`}
+															alt=''
+														/>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo4}`}
+															alt=''
+														/>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo5}`}
+															alt=''
+														/>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo6}`}
+															alt=''
+														/>
+													</li>
+												))}
+										</SlickSlider>
+									</ul>
+								</div>
+								<div className='slider port__slider__mobil'>
+									<SlickSlider {...settingsOne}>
+										{currentSlide &&
+											currentSlide.photos!.map((item, idx) => (
+												<>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo1}`}
+															alt=''
+														/>
+													</div>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo2}`}
+															alt=''
+														/>
+													</div>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo3}`}
+															alt=''
+														/>
+													</div>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo4}`}
+															alt=''
+														/>
+													</div>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo5}`}
+															alt=''
+														/>
+													</div>
+													<div key={idx}>
+														<img
+															src={`${process.env.REACT_APP_LINK}${item.photo6}`}
+															alt=''
+														/>
+													</div>
+												</>
+											))}
+									</SlickSlider>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className='title__top_left'></div>
+					<div className='title__top_right'></div>
+				</section>
+				{/* Портфолио конец */}
 
 				<section className='portfolio' id='portfolio'>
 					<div className='portolio__wrap'>
