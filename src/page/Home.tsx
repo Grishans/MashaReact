@@ -641,9 +641,9 @@ const Home: React.FC = observer(
             <p className="title">Портфолио</p>
 
             <div className="portfolio__slideButton">
-              <span id="customPrev" className="portfolio_prev">
+              {/* <span id="customPrev" className="portfolio_prev">
                 &#60;
-              </span>
+              </span> */}
               <p
                 ref={current_slide}
                 id="firstLetter"
@@ -651,9 +651,9 @@ const Home: React.FC = observer(
               ></p>
               <p className="delimiter">/</p>
               <p ref={quantity_slide} id="delimiter"></p>
-              <span id="customNext" className="portfolio_next">
+              {/* <span id="customNext" className="portfolio_next">
                 &#62;
-              </span>
+              </span> */}
             </div>
 
             <div className="portfolio__section">
@@ -684,26 +684,32 @@ const Home: React.FC = observer(
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo1}`}
                               alt=""
+                              className="port1"
                             />
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo2}`}
                               alt=""
+                              className="port2"
                             />
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo3}`}
                               alt=""
+                              className="port3"
                             />
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo4}`}
                               alt=""
+                              className="port4"
                             />
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo5}`}
                               alt=""
+                              className="port5"
                             />
                             <img
                               src={`${process.env.REACT_APP_LINK}${item.photo6}`}
                               alt=""
+                              className="port6"
                             />
                           </div>
                         ))}
