@@ -644,13 +644,13 @@ const Home: React.FC = observer(
               {/* <span id="customPrev" className="portfolio_prev">
                 &#60;
               </span> */}
-              <p
-                ref={current_slide}
-                id="firstLetter"
-                className="firstLetter"
-              ></p>
+              <p ref={current_slide} id="firstLetter" className="firstLetter">
+                1
+              </p>
               <p className="delimiter">/</p>
-              <p ref={quantity_slide} id="delimiter"></p>
+              <p ref={quantity_slide} id="delimiter">
+                5
+              </p>
               {/* <span id="customNext" className="portfolio_next">
                 &#62;
               </span> */}
