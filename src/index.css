@@ -509,7 +509,7 @@ ul#ul1 .slick-slider .slick-arrow {
   font-size: 0;
 }
 ul#ul1 .slick-slider .slick-prev {
-  right: 7%;
+  right: 9%;
   left: unset;
 }
 ul#ul1 .slick-slider .slick-prev::before {
@@ -518,7 +518,7 @@ ul#ul1 .slick-slider .slick-prev::before {
   font-size: 25pt;
 }
 ul#ul1 .slick-slider .slick-next {
-  right: 2%;
+  right: 1%;
 }
 ul#ul1 .slick-slider .slick-next::before {
   content: ">";
@@ -531,7 +531,7 @@ ul#ul1 .slick-slider .slick-next::before {
   display: flex;
   align-items: center;
   right: 4%;
-  top: 7%;
+  top: 7.5%;
   z-index: 1;
   color: #000;
   font-size: 22px;
