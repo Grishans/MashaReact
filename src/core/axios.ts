@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from "axios"
 
-axios.defaults.baseURL = `${process.env.REACT_APP_LINK}api`;
+axios.defaults.baseURL = `${process.env.REACT_APP_LINK}api`
 
-const token = localStorage.getItem("token");
-token && (axios.defaults.headers.common["token"] = `${token}`);
+const token = localStorage.getItem("token")
+token && (axios.defaults.headers.common["token"] = `${token}`)
 
-export default axios;
+export default axios
